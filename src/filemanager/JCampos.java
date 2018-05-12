@@ -341,7 +341,9 @@ public class JCampos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarCampoActionPerformed
 
     private void btnCrearMetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMetaActionPerformed
-        // TODO add your handling code he
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro que quiere Guardar "
+                + "los Campos en el archivo Seleccionado?","ELIMINAR ARCHIVO!!!!",
+                JOptionPane.YES_NO_OPTION);
     }//GEN-LAST:event_btnCrearMetaActionPerformed
 
     private void btnGuardarCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCampoActionPerformed
