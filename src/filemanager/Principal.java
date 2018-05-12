@@ -74,6 +74,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnRegistros.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/users.png"))); // NOI18N
+        btnRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrosActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("CAMPOS");
@@ -207,6 +212,20 @@ public class Principal extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_btnCamposActionPerformed
+
+    private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
+        File listaArchivos = new File("tables");
+        String[] lista = listaArchivos.list();
+        if(lista.length == 0){
+            JOptionPane.showMessageDialog(null, "No puede agregar Reistros"
+                    + " si no hay archivos donde Guardarlos!!");
+        }else{
+            JRegistros jreistros = new JRegistros();
+            jreistros.setVisible(true);
+            
+            
+        }
+    }//GEN-LAST:event_btnRegistrosActionPerformed
 
     /**
      * @param args the command line arguments

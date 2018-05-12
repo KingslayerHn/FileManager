@@ -16,6 +16,7 @@ public class JRegistros extends javax.swing.JFrame {
      */
     public JRegistros() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
