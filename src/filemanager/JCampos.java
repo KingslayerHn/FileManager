@@ -333,11 +333,8 @@ public class JCampos extends javax.swing.JFrame {
             txtNombresCampos.setEnabled(true);
             cmbLlaveSecundaria.setEnabled(true);
             cmbTipoDato.setEnabled(true);
-            txtNombresCampos.requestFocus();
-            
-        }
-        
-        
+            txtNombresCampos.requestFocus();     
+        }   
     }//GEN-LAST:event_btnModificarCampoActionPerformed
 
     private void btnCrearMetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMetaActionPerformed
