@@ -20,11 +20,15 @@ public class Archivo extends javax.swing.JFrame {
     
     public Archivo() {
         
-        
         initComponents();
         this.setLocationRelativeTo(this);
         //se mueve al directorio adondese encuentran los archivos
         refreshModel();
+          if(cmbarchivosDisponibles.getItemCount()==0){
+            btnEliminar.setEnabled(false);
+            
+        }
+        
     }
     
     public void refreshModel(){
@@ -266,6 +270,9 @@ public class Archivo extends javax.swing.JFrame {
                         + "de borar el archivo"); 
             }  
             
+        }
+        if(cmbarchivosDisponibles.getItemCount()==0){
+            btnEliminar.setEnabled(false);   
         }
         
         

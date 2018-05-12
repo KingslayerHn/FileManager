@@ -419,7 +419,7 @@ public class JCampos extends javax.swing.JFrame {
                     " no puede ser Eliminado");            
         }else{
             int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar "
-                + "el Campo seleccionado?","ELIMINAR ARCHIVO!!!!",
+                + "el Campo seleccionado?","ELIMINAR CAMPO!!!!",
                 JOptionPane.YES_NO_OPTION);
             if (opcion == 0) {
                 listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());

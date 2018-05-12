@@ -20,8 +20,9 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        this.setLocationRelativeTo(this);        
-        
+        this.setLocationRelativeTo(this); 
+        File path = new File("tables");
+        String[] listaArchivos = path.list();        
     }
 
     /**
@@ -194,8 +195,17 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnfileActionPerformed
 
     private void btnCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCamposActionPerformed
-        JCampos jcampos = new JCampos();
-        jcampos.setVisible(true);
+        File listaArchivos = new File("tables");
+        String[] lista = listaArchivos.list();
+        if(lista.length == 0){
+            JOptionPane.showMessageDialog(null, "No puede agregar campos"
+                    + " si no hay archivos donde Guardarlos!!");
+        }else{
+            JCampos jcampos = new JCampos();
+            jcampos.setVisible(true);
+            
+        }
+       
     }//GEN-LAST:event_btnCamposActionPerformed
 
     /**
