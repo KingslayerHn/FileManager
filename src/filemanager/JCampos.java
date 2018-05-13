@@ -6,7 +6,13 @@
 package filemanager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -338,11 +344,33 @@ public class JCampos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarCampoActionPerformed
 
     private void btnCrearMetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMetaActionPerformed
+        
+        System.out.println(cmbCamposDisponibles.getSelectedIndex());
         int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro que quiere Guardar "
                 + "los Campos en el archivo Seleccionado?","ELIMINAR ARCHIVO!!!!",
                 JOptionPane.YES_NO_OPTION);
         if(opcion == 0){
-            
+            try {
+                FileReader fr = new FileReader("tables//"+(String)cmbArchivosDisponibles.getSelectedItem());
+                    if(fr.read() != -1){
+                        JOptionPane.showMessageDialog(null, "El archivo Ya tiene una estructura de "
+                                + "campos creada. NO SE PUEDE MODIFICAR SU ESTRUCTURA.");
+                    }else{
+                        FileWriter fw = new FileWriter("tables//"+
+                                (String)cmbArchivosDisponibles.getSelectedItem());
+                        String cadenaGuardar =""; 
+                        for (fieldStructure listaCampo : listaCampos) {
+                            cadenaGuardar+=listaCampo.isPrimaryKey()+"|"+listaCampo.isSecondaryKey()+
+                                    "|"+listaCampo.getFieldName()+"|"+listaCampo.getDataType()+"&";
+                        }
+                        fw.write(cadenaGuardar);
+                        fw.close();
+                        JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");                     
+                    }
+                fr.close();
+            } catch (IOException ex) {
+                Logger.getLogger(JCampos.class.getName()).log(Level.SEVERE, null, ex);
+            }  
         }
     }//GEN-LAST:event_btnCrearMetaActionPerformed
 
