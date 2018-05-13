@@ -29,31 +29,196 @@ public class JRegistros extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        btnCrearRegistro = new javax.swing.JButton();
+        btnModificarRegistro = new javax.swing.JButton();
+        btnBorrarRegistro = new javax.swing.JButton();
+        btnGuardarRegistro = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cmb_Registros = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("REGISTROS");
 
+        btnCrearRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/crearCamp.png"))); // NOI18N
+        btnCrearRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearRegistroActionPerformed(evt);
+            }
+        });
+
+        btnModificarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/modificarCampo.png"))); // NOI18N
+        btnModificarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarRegistroActionPerformed(evt);
+            }
+        });
+
+        btnBorrarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/borrar formato.png"))); // NOI18N
+        btnBorrarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarRegistroActionPerformed(evt);
+            }
+        });
+
+        btnGuardarRegistro.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnGuardarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/crear meta.png"))); // NOI18N
+        btnGuardarRegistro.setEnabled(false);
+        btnGuardarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarRegistroActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Introducir");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Modificar");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Eliminar");
+
+        cmb_Registros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText("Lista de Registros");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(251, Short.MAX_VALUE)
+                .addContainerGap(295, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(248, 248, 248))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnBorrarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(jLabel3)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGuardarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel4))
+                                    .addComponent(btnModificarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCrearRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmb_Registros, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)))))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnCrearRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmb_Registros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBorrarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addComponent(btnGuardarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRegistroActionPerformed
+      /*  this.txtNombresCampos.setEnabled(true);
+        this.txtNombresCampos.requestFocus();
+        this.btnModificarRegistro.setEnabled(false);
+        this.btnBorrarRegistro.setEnabled(false);
+        this.btnCrearRegistro.setEnabled(false);
+        btnGuardarRegistro.setEnabled(false);*/
+    }//GEN-LAST:event_btnCrearRegistroActionPerformed
+
+    private void btnModificarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRegistroActionPerformed
+      /*  if(cmbCamposDisponibles.getSelectedItem().equals("ID")){
+            JOptionPane.showMessageDialog(null,"el Campo: " + cmbCamposDisponibles.getSelectedItem()+
+                " no puede ser Modificado");
+        }else{
+            this.txtNombresCampos.setEnabled(true);
+            this.btnModificarRegistro.setEnabled(false);
+            this.btnBorrarRegistro.setEnabled(false);
+            this.btnCrearRegistro.setEnabled(false);
+
+            //agregar valores del campo seleccionado al Campo
+            txtNombresCampos.setText(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getFieldName());
+            listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
+            camposDisponibles();
+            txtNombresCampos.setEnabled(true);
+            cmbLlaveSecundaria.setEnabled(true);
+            cmbTipoDato.setEnabled(true);
+            txtNombresCampos.requestFocus();
+        }*/
+    }//GEN-LAST:event_btnModificarRegistroActionPerformed
+
+    private void btnBorrarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRegistroActionPerformed
+
+      /*  if(cmbCamposDisponibles.getSelectedItem().equals("ID")){
+            JOptionPane.showMessageDialog(null,"el Campo: " + cmbCamposDisponibles.getSelectedItem()+
+                " no puede ser Eliminado");
+        }else{
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar "
+                + "el Campo seleccionado?","ELIMINAR CAMPO!!!!",
+                JOptionPane.YES_NO_OPTION);
+            if (opcion == 0) {
+                listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
+                JOptionPane.showMessageDialog(null, "Campo Eliminado con exito!");
+                camposDisponibles();
+            }
+        }
+        if(cmbCamposDisponibles.getItemCount()==1){
+            btnGuardarRegistro.setEnabled(false);
+        }*/
+    }//GEN-LAST:event_btnBorrarRegistroActionPerformed
+
+    private void btnGuardarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarRegistroActionPerformed
+     /*   int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro que quiere Guardar "
+            + "los Campos en el archivo Seleccionado?","ELIMINAR ARCHIVO!!!!",
+            JOptionPane.YES_NO_OPTION);*/
+    }//GEN-LAST:event_btnGuardarRegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -91,6 +256,15 @@ public class JRegistros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrarRegistro;
+    private javax.swing.JButton btnCrearRegistro;
+    private javax.swing.JButton btnGuardarRegistro;
+    private javax.swing.JButton btnModificarRegistro;
+    private javax.swing.JComboBox<String> cmb_Registros;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }
