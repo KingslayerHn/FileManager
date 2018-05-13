@@ -129,12 +129,10 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCampos)
                             .addComponent(btnExportar))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSalir)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(btnRegistros)))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnRegistros)
+                            .addComponent(btnSalir))
                         .addContainerGap(36, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -220,8 +218,8 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No puede agregar Reistros"
                     + " si no hay archivos donde Guardarlos!!");
         }else{
-            JRegistros jreistros = new JRegistros();
-            jreistros.setVisible(true);
+            JRegistros jregistros = new JRegistros();
+            jregistros.setVisible(true);
             
             
         }
