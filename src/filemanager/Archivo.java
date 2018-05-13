@@ -287,7 +287,7 @@ public class Archivo extends javax.swing.JFrame {
 
     private void txtnuevoArchivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnuevoArchivoKeyPressed
         if(txtnuevoArchivo.getText().length()>20){
-            JOptionPane.showMessageDialog(null,"Nombre de Campo demaciado Largo");
+            JOptionPane.showMessageDialog(null,"Nombre de Archivo demaciado Largo");
             txtnuevoArchivo.setText("");
             txtnuevoArchivo.requestFocus();    
         }
