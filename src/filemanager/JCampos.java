@@ -405,6 +405,11 @@ public class JCampos extends javax.swing.JFrame {
 
     private void txtNombresCamposKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresCamposKeyPressed
         cmbLlaveSecundaria.setEnabled(txtNombresCampos.getText().length()!=0);
+        if(txtNombresCampos.getText().length()>20){
+            JOptionPane.showMessageDialog(null,"Nombre de Campo demaciado Largo");
+            txtNombresCampos.setText("");
+            txtNombresCampos.requestFocus();    
+        }
     }//GEN-LAST:event_txtNombresCamposKeyPressed
 
     private void cmbTipoDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoDatoActionPerformed

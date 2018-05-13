@@ -86,6 +86,9 @@ public class Archivo extends javax.swing.JFrame {
             }
         });
         txtnuevoArchivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtnuevoArchivoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtnuevoArchivoKeyReleased(evt);
             }
@@ -281,6 +284,14 @@ public class Archivo extends javax.swing.JFrame {
     private void cmbarchivosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbarchivosDisponiblesActionPerformed
        
     }//GEN-LAST:event_cmbarchivosDisponiblesActionPerformed
+
+    private void txtnuevoArchivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnuevoArchivoKeyPressed
+        if(txtnuevoArchivo.getText().length()>20){
+            JOptionPane.showMessageDialog(null,"Nombre de Campo demaciado Largo");
+            txtnuevoArchivo.setText("");
+            txtnuevoArchivo.requestFocus();    
+        }
+    }//GEN-LAST:event_txtnuevoArchivoKeyPressed
 
     /**
      * @param args the command line arguments
