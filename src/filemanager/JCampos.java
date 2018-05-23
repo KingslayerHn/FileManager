@@ -6,7 +6,6 @@
 package filemanager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -345,7 +344,6 @@ public class JCampos extends javax.swing.JFrame {
 
     private void btnCrearMetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMetaActionPerformed
         
-        System.out.println(cmbCamposDisponibles.getSelectedIndex());
         int opcion = JOptionPane.showConfirmDialog(null, "¿Esta Seguro que quiere Guardar "
                 + "los Campos en el archivo Seleccionado?","ELIMINAR ARCHIVO!!!!",
                 JOptionPane.YES_NO_OPTION);
