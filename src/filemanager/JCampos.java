@@ -362,12 +362,13 @@ public class JCampos extends javax.swing.JFrame {
                         }
                         fw.write(cadenaGuardar);
                         fw.close();
-                        JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");                     
+                        JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");
                     }
                 fr.close();
             } catch (IOException ex) {
                 Logger.getLogger(JCampos.class.getName()).log(Level.SEVERE, null, ex);
-            }  
+            }
+        btnCrearMeta.setEnabled(false);
         }
     }//GEN-LAST:event_btnCrearMetaActionPerformed
 
