@@ -1,0 +1,1 @@
+false|ID|Numero&false|Nombre|Texto&

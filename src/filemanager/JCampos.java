@@ -25,8 +25,7 @@ public class JCampos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         archivosDisponibles();
-        this.listaCampos.add(new fieldStructure(true,false,"ID",
-        "Numero"));
+        this.listaCampos.add(new fieldStructure(false,"ID","Numero"));
         camposDisponibles();
     }
     
@@ -358,8 +357,8 @@ public class JCampos extends javax.swing.JFrame {
                                 (String)cmbArchivosDisponibles.getSelectedItem());
                         String cadenaGuardar =""; 
                         for (fieldStructure listaCampo : listaCampos) {
-                            cadenaGuardar+=listaCampo.isPrimaryKey()+"|"+listaCampo.isSecondaryKey()+
-                                    "|"+listaCampo.getFieldName()+"|"+listaCampo.getDataType()+"&";
+                            cadenaGuardar+=listaCampo.isSecondaryKey()+
+                                    "|"+listaCampo.getFieldName()+"|"+listaCampo.getDataType()+"\n";
                         }
                         fw.write(cadenaGuardar);
                         fw.close();
@@ -379,7 +378,7 @@ public class JCampos extends javax.swing.JFrame {
             secondkey=true;
         }
         String dataType=(String) cmbTipoDato.getSelectedItem();
-        listaCampos.add(new fieldStructure(false, secondkey, name, dataType));
+        listaCampos.add(new fieldStructure(secondkey, name, dataType));
         camposDisponibles();
         this.txtNombresCampos.setText("");
         btnBorrar.setEnabled(true);
@@ -473,6 +472,15 @@ public class JCampos extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+    public void guardarMeta(){
+        String DatosGuardar ="";
+        for (fieldStructure listaCampo : listaCampos) {
+           DatosGuardar += listaCampo.isSecondaryKey()+"|"+listaCampo.getFieldName()+
+                   "|"+listaCampo.getDataType()+"/n";
+            System.out.println(DatosGuardar);
+        }
+        
     }
     
     /**

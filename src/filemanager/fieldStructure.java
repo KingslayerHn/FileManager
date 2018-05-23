@@ -8,19 +8,11 @@ public class fieldStructure {
     private String fieldName;
     private String dataType;
     
-    public fieldStructure(boolean primaryKey, boolean secondaryKey, String fieldName, String dataType) {
-        this.primaryKey = primaryKey;
+    public fieldStructure(boolean secondaryKey, String fieldName, String dataType) {
+       
         this.secondaryKey = secondaryKey;
         this.fieldName = fieldName;
         this.dataType = dataType;
-    }
-
-    public boolean isPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(boolean primaryKey) {
-        this.primaryKey = primaryKey;
     }
 
     public boolean isSecondaryKey() {

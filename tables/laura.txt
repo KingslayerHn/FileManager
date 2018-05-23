@@ -1,0 +1,4 @@
+false|ID|Numero
+false|Nombre|Texto
+false|Direccion|Texto
+false|Telefono|Telefono
