@@ -1,1 +1,0 @@
-true|false|ID|Numero&false|false|Nombre|Texto&false|false|Direccion|Texto&false|false|Edad|Numero&
