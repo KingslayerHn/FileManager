@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package filemanager;
 
 import java.io.File;
@@ -14,10 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author MerryGoRound
- */
 public class JCampos extends javax.swing.JFrame {
 
     ArrayList <fieldStructure> listaCampos = new ArrayList <fieldStructure>(); 
@@ -25,8 +17,9 @@ public class JCampos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         archivosDisponibles();
-        this.listaCampos.add(new fieldStructure(false,"ID","Numero"));
+        listaCampos.add(new fieldStructure(false, "ID", "Numero",3));
         camposDisponibles();
+        limpiarCampos();
     }
     
      public void archivosDisponibles(){
@@ -78,12 +71,14 @@ public class JCampos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtNombresCampos = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cmbLlaveSecundaria = new javax.swing.JComboBox<>();
+        cmbLlavePrimaria = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         cmbTipoDato = new javax.swing.JComboBox<>();
         btnCrearMeta = new javax.swing.JButton();
         btnGuardarCampo = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        cmbSizeField = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -147,19 +142,19 @@ public class JCampos extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("Llave secundaria:");
+        jLabel8.setText("Llave Primaria");
 
-        cmbLlaveSecundaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        cmbLlaveSecundaria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
-        cmbLlaveSecundaria.setEnabled(false);
-        cmbLlaveSecundaria.addActionListener(new java.awt.event.ActionListener() {
+        cmbLlavePrimaria.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cmbLlavePrimaria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
+        cmbLlavePrimaria.setEnabled(false);
+        cmbLlavePrimaria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbLlaveSecundariaActionPerformed(evt);
+                cmbLlavePrimariaActionPerformed(evt);
             }
         });
-        cmbLlaveSecundaria.addKeyListener(new java.awt.event.KeyAdapter() {
+        cmbLlavePrimaria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cmbLlaveSecundariaKeyPressed(evt);
+                cmbLlavePrimariaKeyPressed(evt);
             }
         });
 
@@ -196,6 +191,23 @@ public class JCampos extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Guardar Campos ");
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setText("Tamaño de campo:");
+
+        cmbSizeField.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cmbSizeField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "20", "23", "25", "30", "35", "40", "45", "50" }));
+        cmbSizeField.setEnabled(false);
+        cmbSizeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSizeFieldActionPerformed(evt);
+            }
+        });
+        cmbSizeField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbSizeFieldKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,45 +232,45 @@ public class JCampos extends javax.swing.JFrame {
                                         .addComponent(jLabel1)))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbArchivosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnModificarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnGuardarCampo))
+                                        .addGap(13, 13, 13)
+                                        .addComponent(jLabel6))
+                                    .addComponent(btnModificarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cmbSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cmbArchivosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(13, 13, 13)
-                                                .addComponent(jLabel6)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGap(16, 16, 16)
+                                                .addComponent(jLabel5))
+                                            .addComponent(cmbCamposDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnCrearMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel10))
+                                            .addComponent(btnGuardarCampo))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(16, 16, 16)
-                                                        .addComponent(jLabel5))
-                                                    .addComponent(cmbCamposDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(btnCrearMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(jLabel10))))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
-                                                    .addGap(26, 26, 26)
-                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txtNombresCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(cmbLlaveSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addComponent(jLabel9)
-                                                    .addGap(51, 51, 51)
-                                                    .addComponent(cmbTipoDato, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                .addGap(0, 29, Short.MAX_VALUE))))
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(37, 37, 37)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNombresCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbLlavePrimaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbTipoDato, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(22, 22, 22))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel3)))
@@ -267,54 +279,61 @@ public class JCampos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addComponent(btnCrearCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCrearCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel9)))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtNombresCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(cmbLlaveSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNombresCampos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbLlavePrimaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbTipoDato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(cmbTipoDato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
-                        .addComponent(jLabel4)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(cmbSizeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGuardarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cmbArchivosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbCamposDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCrearMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbArchivosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbCamposDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCrearMeta, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -332,10 +351,16 @@ public class JCampos extends javax.swing.JFrame {
             
             //agregar valores del campo seleccionado al Campo
             txtNombresCampos.setText(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getFieldName());
+            if (listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).isPrimarykey()) {
+                cmbLlavePrimaria.setSelectedIndex(0);
+            }else{
+                cmbLlavePrimaria.setSelectedIndex(1); 
+            }
+            
             listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
             camposDisponibles();
             txtNombresCampos.setEnabled(true);
-            cmbLlaveSecundaria.setEnabled(true);
+            cmbLlavePrimaria.setEnabled(true);
             cmbTipoDato.setEnabled(true);
             txtNombresCampos.requestFocus();     
         }   
@@ -357,8 +382,9 @@ public class JCampos extends javax.swing.JFrame {
                                 (String)cmbArchivosDisponibles.getSelectedItem());
                         String cadenaGuardar =""; 
                         for (fieldStructure listaCampo : listaCampos) {
-                            cadenaGuardar+=listaCampo.isSecondaryKey()+
-                                    "|"+listaCampo.getFieldName()+"|"+listaCampo.getDataType()+"\n";
+                            cadenaGuardar+=listaCampo.isPrimarykey()+
+                                    "|"+listaCampo.getFieldName()+"|"+listaCampo.getDataType()+"|"+
+                                    listaCampo.getSizeField()+"\n";
                         }
                         fw.write(cadenaGuardar);
                         fw.close();
@@ -373,35 +399,41 @@ public class JCampos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearMetaActionPerformed
 
     private void btnGuardarCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCampoActionPerformed
-        boolean secondkey=false;
+        boolean primaryKey=false;
         String name=this.txtNombresCampos.getText();
-        if (cmbLlaveSecundaria.getSelectedItem().equals("Si")) {
-            secondkey=true;
+        if (cmbLlavePrimaria.getSelectedItem().equals("Si")) {
+            primaryKey=true;
         }
+        int size = Integer.valueOf((String)cmbSizeField.getSelectedItem());
         String dataType=(String) cmbTipoDato.getSelectedItem();
-        listaCampos.add(new fieldStructure(secondkey, name, dataType));
+        listaCampos.add(new fieldStructure(primaryKey, name, dataType,size));
         camposDisponibles();
         this.txtNombresCampos.setText("");
         btnBorrar.setEnabled(true);
         btnCrearCampo.setEnabled(true);
         btnModificarCampo.setEnabled(true);
-        cmbLlaveSecundaria.setEnabled(false);
+        cmbLlavePrimaria.setEnabled(false);
         cmbTipoDato.setEnabled(false);
         txtNombresCampos.setEnabled(false);
         btnGuardarCampo.setEnabled(false);
         btnCrearCampo.requestFocus();
         btnCrearMeta.setEnabled(true);
+        limpiarCampos();
         
         
     }//GEN-LAST:event_btnGuardarCampoActionPerformed
 
     private void btnCrearCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCampoActionPerformed
-        this.txtNombresCampos.setEnabled(true);
-        this.txtNombresCampos.requestFocus();
-        this.btnModificarCampo.setEnabled(false);
-        this.btnBorrar.setEnabled(false);
-        this.btnCrearCampo.setEnabled(false);
+        btnBorrar.setEnabled(false);
+        btnCrearCampo.setEnabled(true);
         btnCrearMeta.setEnabled(false);
+        btnModificarCampo.setEnabled(false);
+        txtNombresCampos.setEnabled(true);
+        cmbSizeField.setEnabled(true);
+        cmbLlavePrimaria.setEnabled(true);
+        cmbTipoDato.setEnabled(true);
+        txtNombresCampos.requestFocus();
+        
     }//GEN-LAST:event_btnCrearCampoActionPerformed
 
     private void txtNombresCamposFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombresCamposFocusLost
@@ -413,7 +445,7 @@ public class JCampos extends javax.swing.JFrame {
             this.txtNombresCampos.requestFocus();
             this.txtNombresCampos.setText("");
         }else{
-            this.cmbLlaveSecundaria.requestFocus();
+            this.cmbLlavePrimaria.requestFocus();
             
         } 
         
@@ -423,17 +455,16 @@ public class JCampos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombresCamposActionPerformed
 
-    private void cmbLlaveSecundariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbLlaveSecundariaKeyPressed
+    private void cmbLlavePrimariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbLlavePrimariaKeyPressed
         
-    }//GEN-LAST:event_cmbLlaveSecundariaKeyPressed
+    }//GEN-LAST:event_cmbLlavePrimariaKeyPressed
 
-    private void cmbLlaveSecundariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLlaveSecundariaActionPerformed
-        cmbTipoDato.setEnabled(true);
+    private void cmbLlavePrimariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLlavePrimariaActionPerformed
         cmbTipoDato.requestFocus();
-    }//GEN-LAST:event_cmbLlaveSecundariaActionPerformed
+    }//GEN-LAST:event_cmbLlavePrimariaActionPerformed
 
     private void txtNombresCamposKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresCamposKeyPressed
-        cmbLlaveSecundaria.setEnabled(txtNombresCampos.getText().length()!=0);
+        
         if(txtNombresCampos.getText().length()>20){
             JOptionPane.showMessageDialog(null,"Nombre de Campo demaciado Largo");
             txtNombresCampos.setText("");
@@ -442,8 +473,7 @@ public class JCampos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombresCamposKeyPressed
 
     private void cmbTipoDatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoDatoActionPerformed
-        btnGuardarCampo.setEnabled(true);
-        btnGuardarCampo.requestFocus();
+        cmbSizeField.requestFocus();
     }//GEN-LAST:event_cmbTipoDatoActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -465,6 +495,15 @@ public class JCampos extends javax.swing.JFrame {
             btnCrearMeta.setEnabled(false);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void cmbSizeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSizeFieldActionPerformed
+        btnGuardarCampo.setEnabled(true);
+        btnGuardarCampo.requestFocus();
+    }//GEN-LAST:event_cmbSizeFieldActionPerformed
+
+    private void cmbSizeFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbSizeFieldKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSizeFieldKeyPressed
     
     public boolean fieldnameExists(String name){
         for (int i = 0; i < listaCampos.size(); i++) {
@@ -474,10 +513,17 @@ public class JCampos extends javax.swing.JFrame {
         }
         return false;
     }
+    public void limpiarCampos(){
+        txtNombresCampos.setText("");
+        cmbLlavePrimaria.setSelectedIndex(-1);
+        cmbTipoDato.setSelectedIndex(-1);
+        cmbSizeField.setSelectedIndex(-1);
+        btnGuardarCampo.setEnabled(false);
+    }
     public void guardarMeta(){
         String DatosGuardar ="";
         for (fieldStructure listaCampo : listaCampos) {
-           DatosGuardar += listaCampo.isSecondaryKey()+"|"+listaCampo.getFieldName()+
+           DatosGuardar += listaCampo.isPrimarykey()+"|"+listaCampo.getFieldName()+
                    "|"+listaCampo.getDataType()+"/n";
             System.out.println(DatosGuardar);
         }
@@ -527,10 +573,12 @@ public class JCampos extends javax.swing.JFrame {
     private javax.swing.JButton btnModificarCampo;
     private javax.swing.JComboBox<String> cmbArchivosDisponibles;
     private javax.swing.JComboBox<String> cmbCamposDisponibles;
-    private javax.swing.JComboBox<String> cmbLlaveSecundaria;
+    private javax.swing.JComboBox<String> cmbLlavePrimaria;
+    private javax.swing.JComboBox<String> cmbSizeField;
     private javax.swing.JComboBox<String> cmbTipoDato;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -3,24 +3,38 @@ package filemanager;
 
 public class fieldStructure {
     
-    private boolean primaryKey; 
-    private boolean secondaryKey;
+
+    private boolean primarykey;
     private String fieldName;
     private String dataType;
-    
-    public fieldStructure(boolean secondaryKey, String fieldName, String dataType) {
-       
-        this.secondaryKey = secondaryKey;
+    private int sizeField;
+
+    public fieldStructure(boolean primarykey, String fieldName, String dataType, int sizeField) {
+        this.primarykey = primarykey;
         this.fieldName = fieldName;
         this.dataType = dataType;
+        this.sizeField = sizeField;
     }
 
-    public boolean isSecondaryKey() {
-        return secondaryKey;
+        
+    public boolean isPrimarykey() {
+        return primarykey;
     }
 
-    public void setSecondaryKey(boolean secondaryKey) {
-        this.secondaryKey = secondaryKey;
+    public void setPrimarykey(boolean primarykey) {
+        this.primarykey = primarykey;
+    }
+
+    public int getSizeField() {
+        return sizeField;
+    }
+
+    public void setSizeField(int sizeField) {
+        this.sizeField = sizeField;
+    }
+
+    public void setSecondaryKey(boolean primarykey) {
+        this.primarykey = primarykey;
     }
 
     public String getFieldName() {
