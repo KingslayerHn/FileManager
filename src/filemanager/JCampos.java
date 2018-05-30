@@ -400,7 +400,7 @@ public class JCampos extends javax.swing.JFrame {
                                     "|"+listaCampo.getFieldName()+"|"+listaCampo.getDataType()+"|"+
                                     listaCampo.getSizeField()+"\n";
                         }
-                        fw.write(cadenaGuardar);
+                        fw.write(cadenaGuardar+'#');
                         fw.close();
                         JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");
                     }

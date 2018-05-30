@@ -5,8 +5,11 @@
  */
 package filemanager;
 
+import java.io.File;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +25,7 @@ public class JRegistros extends javax.swing.JFrame {
         this.setSize(900,600);
         this.setLocationRelativeTo(this);
         this.setTitle("REGISTROS");
+        seleccionarArchivo();
         
     }
 
@@ -89,10 +93,10 @@ public class JRegistros extends javax.swing.JFrame {
         );
         JPanelTablaLayout.setVerticalGroup(
             JPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+            .addGap(0, 390, Short.MAX_VALUE)
         );
 
-        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 640, 330));
+        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 640, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,23 +132,7 @@ public class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarRegistroActionPerformed
 
     private void btnBorrarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRegistroActionPerformed
-
-      /*  if(cmbCamposDisponibles.getSelectedItem().equals("ID")){
-            JOptionPane.showMessageDialog(null,"el Campo: " + cmbCamposDisponibles.getSelectedItem()+
-                " no puede ser Eliminado");
-        }else{
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar "
-                + "el Campo seleccionado?","ELIMINAR CAMPO!!!!",
-                JOptionPane.YES_NO_OPTION);
-            if (opcion == 0) {
-                listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
-                JOptionPane.showMessageDialog(null, "Campo Eliminado con exito!");
-                camposDisponibles();
-            }
-        }
-        if(cmbCamposDisponibles.getItemCount()==1){
-            btnGuardarRegistro.setEnabled(false);
-        }*/
+        
     }//GEN-LAST:event_btnBorrarRegistroActionPerformed
 
     /**
@@ -180,6 +168,16 @@ public class JRegistros extends javax.swing.JFrame {
                 new JRegistros().setVisible(true);
             }
         });
+    }
+    public void seleccionarArchivo(){
+        File path = new File("tables");
+        String[] listaArchivos = path.list();
+        JComboBox cmbJOptionPane = new JComboBox(listaArchivos);
+        JOptionPane.showMessageDialog( null, cmbJOptionPane, "Mostrar Datos Archivo", JOptionPane.QUESTION_MESSAGE);
+          
+    }
+    public void crearTabla(){
+        DefaultTableModel crearTabla = new DefaultTableModel();        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

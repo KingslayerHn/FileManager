@@ -1,0 +1,4 @@
+false|ID|Numero|3
+true|Nombre|Texto|14
+false|Direccion|Texto|30
+#
