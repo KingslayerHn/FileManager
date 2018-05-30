@@ -5,7 +5,13 @@
  */
 package filemanager;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -16,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Lesterarte
  */
 public class JRegistros extends javax.swing.JFrame {
+    
+    ArrayList<fieldStructure> listaCampos= new ArrayList();
 
     /**
      * Creates new form JRegistros
@@ -25,7 +33,12 @@ public class JRegistros extends javax.swing.JFrame {
         this.setSize(900,600);
         this.setLocationRelativeTo(this);
         this.setTitle("REGISTROS");
-        seleccionarArchivo();
+        File archivo = new File("tables\\"+seleccionarArchivo());
+        try {
+            cargarCampos(archivo);
+        } catch (Exception e) {
+            System.out.println("Ups!!! algo salio mal con el archivo");
+        }
         
     }
 
@@ -169,12 +182,36 @@ public class JRegistros extends javax.swing.JFrame {
             }
         });
     }
-    public void seleccionarArchivo(){
+    public String seleccionarArchivo(){
         File path = new File("tables");
         String[] listaArchivos = path.list();
         JComboBox cmbJOptionPane = new JComboBox(listaArchivos);
         JOptionPane.showMessageDialog( null, cmbJOptionPane, "Mostrar Datos Archivo", JOptionPane.QUESTION_MESSAGE);
-          
+        return (String)cmbJOptionPane.getSelectedItem();    
+    }
+    public void cargarCampos(File archivo) throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader(archivo));
+        String linea = br.readLine();
+        while(linea != null){
+            bytesCampos+=linea.length()+1;
+            if(linea.equals("#")){
+                break;
+            }else{
+                String lineCampos[] = linea.split("\\|");
+                listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
+                Integer.valueOf(lineCampos[3])));   
+            }
+            linea = br.readLine();
+        }
+        br.close();
+    }
+    public byte[] leerBuffer(String file, int post, int size) throws IOException{
+        RandomAccessFile  archivo = new RandomAccessFile(file,"r");
+        archivo.seek(post);
+        byte[] aLeer = new byte[size];
+        archivo.read(aLeer);
+        archivo.close();
+        return aLeer;           
     }
     public void crearTabla(){
         DefaultTableModel crearTabla = new DefaultTableModel();        
@@ -190,4 +227,5 @@ public class JRegistros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
     private JTable tabla;
+    private int bytesCampos=0;
 }
