@@ -1,0 +1,4 @@
+false|ID|Numero|3
+true|Nombre|Texto|8
+false|Edad|Numero|2
+false|Genero|Texto|14

@@ -37,6 +37,16 @@ public class JCampos extends javax.swing.JFrame {
             this.cmbCamposDisponibles.addItem(listaCampo.getFieldName());
         });
     }
+    public boolean existKey(){
+        for (fieldStructure listaCampo : listaCampos) {
+            if (listaCampo.isPrimarykey()){
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    
     public int indexCampo(String campo){
         for (int i = 0; i <10; i++) {
             
@@ -348,6 +358,7 @@ public class JCampos extends javax.swing.JFrame {
             this.btnModificarCampo.setEnabled(false);
             this.btnBorrar.setEnabled(false);
             this.btnCrearCampo.setEnabled(false);
+            cmbSizeField.setEnabled(true);
             
             //agregar valores del campo seleccionado al Campo
             txtNombresCampos.setText(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getFieldName());
@@ -356,8 +367,10 @@ public class JCampos extends javax.swing.JFrame {
             }else{
                 cmbLlavePrimaria.setSelectedIndex(1); 
             }
-           
+            cmbTipoDato.setSelectedItem(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getDataType());
+            cmbSizeField.setSelectedItem(Integer.toString(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getSizeField()));
             
+            System.out.println(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getSizeField());
             listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
             camposDisponibles();
             txtNombresCampos.setEnabled(true);
@@ -400,26 +413,33 @@ public class JCampos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearMetaActionPerformed
 
     private void btnGuardarCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCampoActionPerformed
-        boolean primaryKey=false;
-        String name=this.txtNombresCampos.getText();
-        if (cmbLlavePrimaria.getSelectedItem().equals("Si")) {
-            primaryKey=true;
+        
+        if(existKey() && cmbLlavePrimaria.getSelectedItem().equals("Si")){
+            JOptionPane.showMessageDialog(null, "Solo puede Existir una Llave Primaria");
+        }else{
+            boolean primaryKey=false;
+            String name=this.txtNombresCampos.getText();
+            if (cmbLlavePrimaria.getSelectedItem().equals("Si")) {
+                primaryKey=true;
+            }
+            int size = Integer.valueOf((String)cmbSizeField.getSelectedItem());
+            String dataType=(String) cmbTipoDato.getSelectedItem();
+            listaCampos.add(new fieldStructure(primaryKey, name, dataType,size));
+            camposDisponibles();
+            this.txtNombresCampos.setText("");
+            btnBorrar.setEnabled(true);
+            btnCrearCampo.setEnabled(true);
+            btnModificarCampo.setEnabled(true);
+            cmbLlavePrimaria.setEnabled(false);
+            cmbTipoDato.setEnabled(false);
+            txtNombresCampos.setEnabled(false);
+            btnGuardarCampo.setEnabled(false);
+            btnCrearCampo.requestFocus();
+            btnCrearMeta.setEnabled(true);
+            cmbSizeField.setEnabled(false);
+            limpiarCampos();
         }
-        int size = Integer.valueOf((String)cmbSizeField.getSelectedItem());
-        String dataType=(String) cmbTipoDato.getSelectedItem();
-        listaCampos.add(new fieldStructure(primaryKey, name, dataType,size));
-        camposDisponibles();
-        this.txtNombresCampos.setText("");
-        btnBorrar.setEnabled(true);
-        btnCrearCampo.setEnabled(true);
-        btnModificarCampo.setEnabled(true);
-        cmbLlavePrimaria.setEnabled(false);
-        cmbTipoDato.setEnabled(false);
-        txtNombresCampos.setEnabled(false);
-        btnGuardarCampo.setEnabled(false);
-        btnCrearCampo.requestFocus();
-        btnCrearMeta.setEnabled(true);
-        limpiarCampos();
+        
         
         
     }//GEN-LAST:event_btnGuardarCampoActionPerformed
