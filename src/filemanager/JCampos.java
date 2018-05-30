@@ -356,6 +356,7 @@ public class JCampos extends javax.swing.JFrame {
             }else{
                 cmbLlavePrimaria.setSelectedIndex(1); 
             }
+           
             
             listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
             camposDisponibles();
