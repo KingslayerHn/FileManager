@@ -5,15 +5,19 @@
  */
 package filemanager;
 
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,6 +43,7 @@ public class JRegistros extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Ups!!! algo salio mal con el archivo");
         }
+        crearTabla();
         
     }
 
@@ -58,6 +63,8 @@ public class JRegistros extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         JPanelTabla = new javax.swing.JPanel();
+        BtnPrevious = new javax.swing.JButton();
+        BtnNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -98,18 +105,42 @@ public class JRegistros extends javax.swing.JFrame {
         jLabel5.setText("Eliminar Registro");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 366, -1, -1));
 
+        BtnPrevious.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/previous.png"))); // NOI18N
+        BtnPrevious.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPreviousActionPerformed(evt);
+            }
+        });
+
+        BtnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/next.png"))); // NOI18N
+        BtnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JPanelTablaLayout = new javax.swing.GroupLayout(JPanelTabla);
         JPanelTabla.setLayout(JPanelTablaLayout);
         JPanelTablaLayout.setHorizontalGroup(
             JPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(JPanelTablaLayout.createSequentialGroup()
+                .addGap(210, 210, 210)
+                .addComponent(BtnPrevious)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnNext)
+                .addContainerGap(244, Short.MAX_VALUE))
         );
         JPanelTablaLayout.setVerticalGroup(
             JPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelTablaLayout.createSequentialGroup()
+                .addContainerGap(337, Short.MAX_VALUE)
+                .addGroup(JPanelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BtnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 640, 390));
+        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 570, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +178,14 @@ public class JRegistros extends javax.swing.JFrame {
     private void btnBorrarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRegistroActionPerformed
         
     }//GEN-LAST:event_btnBorrarRegistroActionPerformed
+
+    private void BtnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPreviousActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnPreviousActionPerformed
+
+    private void BtnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnNextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,19 +252,28 @@ public class JRegistros extends javax.swing.JFrame {
         archivo.close();
         return aLeer;           
     }
+    public void agregarContenedor(){
+        
+    }
     public void crearTabla(){
-        DefaultTableModel crearTabla = new DefaultTableModel();        
+        this.add(new JPanel());
+                
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnNext;
+    private javax.swing.JButton BtnPrevious;
     private javax.swing.JPanel JPanelTabla;
     private javax.swing.JButton btnBorrarRegistro;
     private javax.swing.JButton btnCrearRegistro;
     private javax.swing.JButton btnModificarRegistro;
+    private javax.swing.JButton btnNext;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
     private JTable tabla;
+    private javax.swing.JLabel castita;
     private int bytesCampos=0;
+    private Container contenedor = getContentPane();
 }
