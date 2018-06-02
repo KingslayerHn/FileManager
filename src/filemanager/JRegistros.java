@@ -35,7 +35,7 @@ public class JRegistros extends javax.swing.JFrame {
      */
     public JRegistros() {
         initComponents();
-        this.setSize(900,600);
+        this.setSize(900,550);
         this.setLocationRelativeTo(this);
         this.setTitle("REGISTROS");
         File archivo = new File("tables\\"+seleccionarArchivo());
@@ -213,7 +213,7 @@ public class JRegistros extends javax.swing.JFrame {
         BufferedReader br = new BufferedReader(new FileReader(archivo));
         String linea = br.readLine();
         while(linea != null){
-            bytesCampos+=linea.length()+1;
+            bytesMetaCampos+=linea.length()+1;
             if(linea.equals("#")){
                 break;
             }else{
@@ -233,35 +233,38 @@ public class JRegistros extends javax.swing.JFrame {
         archivo.close();
         return aLeer;           
     }
+    public DefaultTableModel crearModelo (){
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        //agregar columnas por medio de campos
+        for (fieldStructure listaCampo : listaCampos) {
+            modeloTabla.addColumn(listaCampo.getFieldName());
+        }
+        //agregar filas
+        for (String Registro : Registros) {
+            String[] actualRegistro = Registro.split("\\|");
+            modeloTabla.addRow(actualRegistro); 
+        }
+        
+        
+        return modeloTabla;
+    }
+    public void CargarArchivoEstructura(String lineaLeidaBuffer){
+   
+        String [] registrosSeparados = lineaLeidaBuffer.split("\\\n");
+        postLectura += lineaLeidaBuffer.length()- 
+                registrosSeparados[registrosSeparados.length-1].length();        
+    }
     public void crearTabla(){
         
         JPanelTabla.setLayout(new BorderLayout());
-        
-        Object[] columnNames = {"Nombre", "Apellido", "Pasatiempo", "Años de Practica", "Soltero(a)",
-                "Años de Practica", "Soltero(a)","Años de Practica", "Soltero(a)"};
-        Object[][] data = {
-                {"Kathy", "Smith",
-                 "Snowboarding", new Integer(5), new Boolean(false)},
-                {"John", "Doe",
-                 "Rowing", new Integer(3), new Boolean(true)},
-                {"Sue", "Black",
-                 "Knitting", new Integer(2), new Boolean(false)},
-                {"Jane", "White",
-                 "Speed reading", new Integer(20), new Boolean(true)},
-                {"Joe", "Brown",
-                 "Pool", new Integer(10), new Boolean(false)}
-            };
-        //crea un modelo para la tabla
-        DefaultTableModel modeloTabla = new DefaultTableModel(data,columnNames);
-        //agrega el modelo para la tabla
-        JTable tabla = new JTable(modeloTabla);
+
+        JTable tabla = new JTable(crearModelo());
         //agrega el scrollpane
         JScrollPane scrollPane = new JScrollPane(tabla);
         tabla.setFillsViewportHeight(true);
-        JPanelTabla.add(scrollPane);
-        
-        
+        JPanelTabla.add(scrollPane);  
     }
+    
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelTabla;
@@ -274,5 +277,13 @@ public class JRegistros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
-    private int bytesCampos=0;
+    private int bytesMetaCampos=0;
+    private int bytesMetaAvailList=0;
+    private ArrayList<String> Registros = new ArrayList();
+    final int delimitadorRegistros =10;
+    private int postLectura=0;
+    private int sizeLectura=200;
+    public int index=0;
+    public int inicio=0;
+    
 }
