@@ -214,10 +214,9 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No puede agregar Reistros"
                     + " si no hay archivos donde Guardarlos!!");
         }else{
-            JRegistros jreistros = new JRegistros();
-            jreistros.setVisible(true);
-            
-            
+            JRegistros registros = new JRegistros();
+            registros.setVisible(true);
+ 
         }
     }//GEN-LAST:event_btnRegistrosActionPerformed
 
