@@ -5,8 +5,6 @@
  */
 package filemanager;
 
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,13 +38,19 @@ public class JRegistros extends javax.swing.JFrame {
         this.setSize(900,550);
         this.setLocationRelativeTo(this);
         this.setTitle("REGISTROS");
-        File archivo = new File("tables\\"+seleccionarArchivo());
+        archivoSeleccionado = seleccionarArchivo();
+        File archivo = new File("tables\\"+archivoSeleccionado);
         try {
             cargarCampos(archivo);
         } catch (Exception e) {
             System.out.println("Ups!!! algo salio mal con el archivo");
         }
         crearTabla();
+        try {
+            CargarArchivoEstructura();
+        } catch (IOException ex) {
+            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
@@ -211,9 +217,10 @@ public class JRegistros extends javax.swing.JFrame {
     }
     public void cargarCampos(File archivo) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(archivo));
-        String linea = br.readLine();
-        while(linea != null){
-            bytesMetaCampos+=linea.length()+1;
+        String linea ;
+        
+        while((linea = br.readLine()) != null){
+            bytesMetaCampos+=linea.length()+2;
             if(linea.equals("#")){
                 break;
             }else{
@@ -221,17 +228,17 @@ public class JRegistros extends javax.swing.JFrame {
                 listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
                 Integer.valueOf(lineCampos[3])));   
             }
-            linea = br.readLine();
         }
         br.close();
     }
-    public byte[] leerBuffer(String file, int post, int size) throws IOException{
+    public byte[] leerArchivoBuffer(String file, int post, int size) throws IOException{
         RandomAccessFile  archivo = new RandomAccessFile(file,"r");
         archivo.seek(post);
-        byte[] aLeer = new byte[size];
-        archivo.read(aLeer);
+        byte[] leerBytes = new byte[size];
+        archivo.read(leerBytes);
         archivo.close();
-        return aLeer;           
+        System.out.println(new String(leerBytes));
+        return leerBytes;           
     }
     public DefaultTableModel crearModelo (){
         DefaultTableModel modeloTabla = new DefaultTableModel();
@@ -243,27 +250,29 @@ public class JRegistros extends javax.swing.JFrame {
         for (String Registro : Registros) {
             String[] actualRegistro = Registro.split("\\|");
             modeloTabla.addRow(actualRegistro); 
-        }
-        
-        
+        }  
         return modeloTabla;
     }
-    public void CargarArchivoEstructura(String lineaLeidaBuffer){
-   
+    public void CargarArchivoEstructura() throws IOException{
+        String lineaLeidaBuffer = new String(leerArchivoBuffer("tables\\"+archivoSeleccionado,bytesMetaCampos,sizeLectura));
+     
         String [] registrosSeparados = lineaLeidaBuffer.split("\\\n");
         postLectura += lineaLeidaBuffer.length()- 
-                registrosSeparados[registrosSeparados.length-1].length();        
+                registrosSeparados[registrosSeparados.length-1].length();
+        
+        //agregar los registros a la estructura
+       
     }
     public void crearTabla(){
         
         JPanelTabla.setLayout(new BorderLayout());
-
         JTable tabla = new JTable(crearModelo());
         //agrega el scrollpane
         JScrollPane scrollPane = new JScrollPane(tabla);
         tabla.setFillsViewportHeight(true);
-        JPanelTabla.add(scrollPane);  
+        JPanelTabla.add(scrollPane);   
     }
+  
     
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -282,8 +291,7 @@ public class JRegistros extends javax.swing.JFrame {
     private ArrayList<String> Registros = new ArrayList();
     final int delimitadorRegistros =10;
     private int postLectura=0;
-    private int sizeLectura=200;
-    public int index=0;
-    public int inicio=0;
+    private int sizeLectura=100;
+    private String archivoSeleccionado;
     
 }

@@ -1,0 +1,11 @@
+true|ID|Numero|3
+false|Nombre|Texto|16
+false|Sexo|Texto|10
+false|Direccion|Texto|45
+false|Edad|Numero|3
+#
+1|Jose Eduardo|masculino|divina providencia|23
+2|maria irias|femenino|los andes|34
+3|andrea nicole|femenino|tegucigalpa|23
+4|ilianita uraco|femenino|tegus|21
+5|lester arteaga|masculino|zambrano|35

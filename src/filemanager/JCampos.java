@@ -17,7 +17,6 @@ public class JCampos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         archivosDisponibles();
-        listaCampos.add(new fieldStructure(false, "ID", "Numero",3));
         camposDisponibles();
         limpiarCampos();
     }
@@ -499,19 +498,15 @@ public class JCampos extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         
-        if(cmbCamposDisponibles.getSelectedItem().equals("ID")){
-            JOptionPane.showMessageDialog(null,"el Campo: " + cmbCamposDisponibles.getSelectedItem()+
-                    " no puede ser Eliminado");            
-        }else{
-            int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar "
-                + "el Campo seleccionado?","ELIMINAR CAMPO!!!!",
-                JOptionPane.YES_NO_OPTION);
-            if (opcion == 0) {
-                listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
-                JOptionPane.showMessageDialog(null, "Campo Eliminado con exito!");
-                camposDisponibles();
-            }                
-        }
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar "
+            + "el Campo seleccionado?","ELIMINAR CAMPO!!!!",
+            JOptionPane.YES_NO_OPTION);
+        if (opcion == 0) {
+            listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
+            JOptionPane.showMessageDialog(null, "Campo Eliminado con exito!");
+            camposDisponibles();
+        }                
+
         if(cmbCamposDisponibles.getItemCount()==1){
             btnCrearMeta.setEnabled(false);
         }
