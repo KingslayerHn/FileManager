@@ -16,9 +16,7 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +30,9 @@ public final class JRegistros extends javax.swing.JFrame {
     ArrayList<fieldStructure> listaCampos= new ArrayList();
     Stack<Integer> pilaBuffer  = new Stack<>(); 
     ArrayList<String> Registros = new ArrayList();
+    JTable tabla;
+    
+    
 
     /**
      * Creates new form JRegistros
@@ -46,18 +47,10 @@ public final class JRegistros extends javax.swing.JFrame {
         try {
             cargarCampos(archivo);
             CargarArchivoEstructura();
-            crearModelo();
             crearTabla();
-        } catch (IOException e) {
-            System.out.println("Ups!!! algo salio mal con el archivo");
-        }
-        crearTabla();
-        try {
-            CargarArchivoEstructura();
         } catch (IOException ex) {
             Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }       
     }
 
     /**
@@ -117,7 +110,7 @@ public final class JRegistros extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Eliminar Registro");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 366, -1, -1));
-        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 660, 420));
+        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 660, 310));
 
         btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/next.png"))); // NOI18N
         btnNext.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +118,7 @@ public final class JRegistros extends javax.swing.JFrame {
                 btnNextActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, -1, 30));
+        getContentPane().add(btnNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 450, -1, 30));
 
         btnPrevious.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/previous.png"))); // NOI18N
         btnPrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -139,33 +132,11 @@ public final class JRegistros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRegistroActionPerformed
-      /*  this.txtNombresCampos.setEnabled(true);
-        this.txtNombresCampos.requestFocus();
-        this.btnModificarRegistro.setEnabled(false);
-        this.btnBorrarRegistro.setEnabled(false);
-        this.btnCrearRegistro.setEnabled(false);
-        btnGuardarRegistro.setEnabled(false);*/
+      
     }//GEN-LAST:event_btnCrearRegistroActionPerformed
 
     private void btnModificarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRegistroActionPerformed
-      /*  if(cmbCamposDisponibles.getSelectedItem().equals("ID")){
-            JOptionPane.showMessageDialog(null,"el Campo: " + cmbCamposDisponibles.getSelectedItem()+
-                " no puede ser Modificado");
-        }else{
-            this.txtNombresCampos.setEnabled(true);
-            this.btnModificarRegistro.setEnabled(false);
-            this.btnBorrarRegistro.setEnabled(false);
-            this.btnCrearRegistro.setEnabled(false);
-
-            //agregar valores del campo seleccionado al Campo
-            txtNombresCampos.setText(listaCampos.get(cmbCamposDisponibles.getSelectedIndex()).getFieldName());
-            listaCampos.remove(cmbCamposDisponibles.getSelectedIndex());
-            camposDisponibles();
-            txtNombresCampos.setEnabled(true);
-            cmbLlaveSecundaria.setEnabled(true);
-            cmbTipoDato.setEnabled(true);
-            txtNombresCampos.requestFocus();
-        }*/
+      
     }//GEN-LAST:event_btnModificarRegistroActionPerformed
 
     private void btnBorrarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRegistroActionPerformed
@@ -173,11 +144,45 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarRegistroActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        // TODO add your handling code here:
+        
+        Registros.clear();
+        try {
+            CargarArchivoEstructura();
+        } catch (IOException ex) {
+            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (Registros.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay mas registros que mostrar");
+        }else{
+            tabla.setModel(crearModelo());
+        }
+        
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        // TODO add your handling code here:
+        
+        if (pilaBuffer.size()==1) {
+            JOptionPane.showMessageDialog(null, "Inicio de Archivo");            
+        }else{
+            System.out.println("voy para atras: "+pilaBuffer.peek());
+            if (pilaBuffer.size()==2) {
+                pilaBuffer.pop();               
+            }
+            else{
+                pilaBuffer.pop();
+                pilaBuffer.pop();                
+            }
+            
+            
+            System.out.println(pilaBuffer.peek());
+            Registros.clear();
+            try {
+                CargarArchivoEstructura();
+            } catch (IOException ex) {
+                Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tabla.setModel(crearModelo());
+        }  
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     /**
@@ -248,6 +253,7 @@ public final class JRegistros extends javax.swing.JFrame {
         System.out.println(new String(leerBytes));
         return leerBytes;           
     }
+   
     public DefaultTableModel crearModelo (){
         DefaultTableModel modeloTabla = new DefaultTableModel();
         //agregar columnas por medio de campos
@@ -257,38 +263,38 @@ public final class JRegistros extends javax.swing.JFrame {
         //agregar filas
         Registros.stream().map((Registro) -> Registro.split("\\|")).forEachOrdered((actualRegistro) -> {
             modeloTabla.addRow(actualRegistro);
-        });  
-        return modeloTabla;
+        });
+        return modeloTabla;  
     }
     
     public void CargarArchivoEstructura() throws IOException{
-        String lineaLeidaBuffer = new String(leerArchivoBuffer("tables\\"+archivoSeleccionado,bytesMetaCampos,sizeLectura));
-     
-        String [] registrosSeparados = lineaLeidaBuffer.split("\\\n");
-        postLectura += lineaLeidaBuffer.length()- 
-                registrosSeparados[registrosSeparados.length-1].length();
-        for (int i = 0; i < registrosSeparados.length-1; i++) {
-            Registros.add(registrosSeparados[i]);
+             
+        if (pilaBuffer.isEmpty()) {
+            pilaBuffer.push(bytesMetaCampos);
+            System.out.println(pilaBuffer.peek());
         }
-        /*for (String registrosSeparado : registrosSeparados) {
-            String[] camposSeperados = registrosSeparado.split("\\|");
-            if(camposSeperados.length == listaCampos.size()){
-                                                
-            }
-        }*/
-       
-    }
-    public void crearTabla(){
+        String lineaLeidaBuffer = new String(leerArchivoBuffer("tables\\"+archivoSeleccionado,
+                    pilaBuffer.peek(),sizeLectura));
+        if (!(lineaLeidaBuffer.equals(" "))){
+            String [] registrosSeparados = lineaLeidaBuffer.split("\\\n");
+            pilaBuffer.push(pilaBuffer.peek()+lineaLeidaBuffer.length()- 
+            registrosSeparados[registrosSeparados.length-1].length());
+            System.out.println(pilaBuffer.peek());
+            for (int i = 0; i < registrosSeparados.length-1; i++) {
+                Registros.add(registrosSeparados[i]);
+            }  
+        }
         
+    }
+    
+    public void crearTabla(){
+        tabla = new JTable(crearModelo());
         JPanelTabla.setLayout(new BorderLayout());
-        JTable tabla = new JTable(crearModelo());
         //agrega el scrollpane
         JScrollPane scrollPane = new JScrollPane(tabla);
         tabla.setFillsViewportHeight(true);
         JPanelTabla.add(scrollPane);   
     }
-  
-    
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelTabla;
@@ -305,7 +311,7 @@ public final class JRegistros extends javax.swing.JFrame {
     private int bytesMetaAvailList=0;
     final int delimitadorRegistros =10;
     private int postLectura=0;
-    private int sizeLectura=200;
+    private int sizeLectura=700;
     private String archivoSeleccionado;
     
 }
