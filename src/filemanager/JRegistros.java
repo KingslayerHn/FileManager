@@ -164,7 +164,6 @@ public final class JRegistros extends javax.swing.JFrame {
         if (pilaBuffer.size()==1) {
             JOptionPane.showMessageDialog(null, "Inicio de Archivo");            
         }else{
-            System.out.println("voy para atras: "+pilaBuffer.peek());
             if (pilaBuffer.size()==2) {
                 pilaBuffer.pop();               
             }
@@ -172,9 +171,6 @@ public final class JRegistros extends javax.swing.JFrame {
                 pilaBuffer.pop();
                 pilaBuffer.pop();                
             }
-            
-            
-            System.out.println(pilaBuffer.peek());
             Registros.clear();
             try {
                 CargarArchivoEstructura();
@@ -250,7 +246,6 @@ public final class JRegistros extends javax.swing.JFrame {
             leerBytes = new byte[size];
             archivo.read(leerBytes);
         }
-        System.out.println(new String(leerBytes));
         return leerBytes;           
     }
    
@@ -271,7 +266,6 @@ public final class JRegistros extends javax.swing.JFrame {
              
         if (pilaBuffer.isEmpty()) {
             pilaBuffer.push(bytesMetaCampos);
-            System.out.println(pilaBuffer.peek());
         }
         String lineaLeidaBuffer = new String(leerArchivoBuffer("tables\\"+archivoSeleccionado,
                     pilaBuffer.peek(),sizeLectura));
@@ -279,7 +273,6 @@ public final class JRegistros extends javax.swing.JFrame {
             String [] registrosSeparados = lineaLeidaBuffer.split("\\\n");
             pilaBuffer.push(pilaBuffer.peek()+lineaLeidaBuffer.length()- 
             registrosSeparados[registrosSeparados.length-1].length());
-            System.out.println(pilaBuffer.peek());
             for (int i = 0; i < registrosSeparados.length-1; i++) {
                 Registros.add(registrosSeparados[i]);
             }  
