@@ -1,7 +1,7 @@
 true|ID|Numero|3
 false|Nombre|Texto|16
 false|Sexo|Texto|10
-false|Direccion|Texto|45
+false|Direccion|Texto|12
 false|Edad|Numero|3
 #
 1|Jose Eduardo|masculino|divina providencia|23

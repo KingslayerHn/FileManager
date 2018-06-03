@@ -6,6 +6,7 @@
 package filemanager;
 
 import java.awt.*;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -32,8 +33,7 @@ public final class JRegistros extends javax.swing.JFrame {
     ArrayList<String> Registros = new ArrayList();
     JTable tabla;
     
-    
-
+  
     /**
      * Creates new form JRegistros
      */
@@ -132,7 +132,9 @@ public final class JRegistros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRegistroActionPerformed
-       
+        AgregarRegistros nuevoRegistro = new AgregarRegistros(this,true, listaCampos);
+        nuevoRegistro.setVisible(true);
+        
     }//GEN-LAST:event_btnCrearRegistroActionPerformed
 
     private void btnModificarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRegistroActionPerformed
@@ -304,7 +306,7 @@ public final class JRegistros extends javax.swing.JFrame {
     private int bytesMetaAvailList=0;
     final int delimitadorRegistros =10;
     private int postLectura=0;
-    private int sizeLectura=700;
+    private int sizeLectura=450;
     private String archivoSeleccionado;
     
 }
