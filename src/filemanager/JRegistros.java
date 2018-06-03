@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -26,9 +27,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Lesterarte
  */
-public class JRegistros extends javax.swing.JFrame {
+public final class JRegistros extends javax.swing.JFrame {
     
     ArrayList<fieldStructure> listaCampos= new ArrayList();
+    Stack<Integer> pilaBuffer  = new Stack<>(); 
+    ArrayList<String> Registros = new ArrayList();
 
     /**
      * Creates new form JRegistros
@@ -42,7 +45,10 @@ public class JRegistros extends javax.swing.JFrame {
         File archivo = new File("tables\\"+archivoSeleccionado);
         try {
             cargarCampos(archivo);
-        } catch (Exception e) {
+            CargarArchivoEstructura();
+            crearModelo();
+            crearTabla();
+        } catch (IOException e) {
             System.out.println("Ups!!! algo salio mal con el archivo");
         }
         crearTabla();
@@ -203,6 +209,7 @@ public class JRegistros extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new JRegistros().setVisible(true);
             }
@@ -216,51 +223,59 @@ public class JRegistros extends javax.swing.JFrame {
         return (String)cmbJOptionPane.getSelectedItem();    
     }
     public void cargarCampos(File archivo) throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader(archivo));
-        String linea ;
-        
-        while((linea = br.readLine()) != null){
-            bytesMetaCampos+=linea.length()+2;
-            if(linea.equals("#")){
-                break;
-            }else{
-                String lineCampos[] = linea.split("\\|");
-                listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
-                Integer.valueOf(lineCampos[3])));   
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea ;
+            
+            while((linea = br.readLine()) != null){
+                bytesMetaCampos+=linea.length()+2;
+                if(linea.equals("#")){
+                    break;
+                }else{
+                    String lineCampos[] = linea.split("\\|");
+                    listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
+                            Integer.valueOf(lineCampos[3])));   
+                }
             }
         }
-        br.close();
     }
     public byte[] leerArchivoBuffer(String file, int post, int size) throws IOException{
-        RandomAccessFile  archivo = new RandomAccessFile(file,"r");
-        archivo.seek(post);
-        byte[] leerBytes = new byte[size];
-        archivo.read(leerBytes);
-        archivo.close();
+        byte[]  leerBytes;
+        try (RandomAccessFile archivo = new RandomAccessFile(file,"r")) {
+            archivo.seek(post);
+            leerBytes = new byte[size];
+            archivo.read(leerBytes);
+        }
         System.out.println(new String(leerBytes));
         return leerBytes;           
     }
     public DefaultTableModel crearModelo (){
         DefaultTableModel modeloTabla = new DefaultTableModel();
         //agregar columnas por medio de campos
-        for (fieldStructure listaCampo : listaCampos) {
+        listaCampos.forEach((listaCampo) -> {
             modeloTabla.addColumn(listaCampo.getFieldName());
-        }
+        });
         //agregar filas
-        for (String Registro : Registros) {
-            String[] actualRegistro = Registro.split("\\|");
-            modeloTabla.addRow(actualRegistro); 
-        }  
+        Registros.stream().map((Registro) -> Registro.split("\\|")).forEachOrdered((actualRegistro) -> {
+            modeloTabla.addRow(actualRegistro);
+        });  
         return modeloTabla;
     }
+    
     public void CargarArchivoEstructura() throws IOException{
         String lineaLeidaBuffer = new String(leerArchivoBuffer("tables\\"+archivoSeleccionado,bytesMetaCampos,sizeLectura));
      
         String [] registrosSeparados = lineaLeidaBuffer.split("\\\n");
         postLectura += lineaLeidaBuffer.length()- 
                 registrosSeparados[registrosSeparados.length-1].length();
-        
-        //agregar los registros a la estructura
+        for (int i = 0; i < registrosSeparados.length-1; i++) {
+            Registros.add(registrosSeparados[i]);
+        }
+        /*for (String registrosSeparado : registrosSeparados) {
+            String[] camposSeperados = registrosSeparado.split("\\|");
+            if(camposSeperados.length == listaCampos.size()){
+                                                
+            }
+        }*/
        
     }
     public void crearTabla(){
@@ -288,10 +303,9 @@ public class JRegistros extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private int bytesMetaCampos=0;
     private int bytesMetaAvailList=0;
-    private ArrayList<String> Registros = new ArrayList();
     final int delimitadorRegistros =10;
     private int postLectura=0;
-    private int sizeLectura=100;
+    private int sizeLectura=200;
     private String archivoSeleccionado;
     
 }
