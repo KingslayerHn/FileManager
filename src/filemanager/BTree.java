@@ -46,8 +46,22 @@ public class BTree {
         for(int i= (pointer.keys.size()/2)+1; i<pointer.keys.size();i++){
             temp2.keys.add(pointer.keys.get(i));
         }
+        //validar si tiene hijos o es hoja
+        if (promover.keys.get(0).der !=null && promover.keys.get(0).izq !=null){
+            
+            Nodo hijoTemporalDerecho = promover.keys.get(0).der;
+            Nodo hijoTemporalIzquierdo = promover.keys.get(0).izq;
+            promover.keys.get(0).der=temp2;
+            promover.keys.get(0).izq = temp1;
+            
+            
+        }else if(promover.keys.get(0).der ==null && promover.keys.get(0).izq !=null){
+            Nodo hijoTemporalIzquierdo = promover.keys.get(0).izq;
+            
+        }else if (promover.keys.get(0).der !=null&& promover.keys.get(0).izq == null) {
+            
+        }
         //validar si se puede agregar si hay espacio disponible
-        
         if (promover.padre==null){
             promover.keys.get(0).der = temp2;
             temp2.padre = promover;
@@ -65,6 +79,7 @@ public class BTree {
                 promover.padre.keys.get(index-1).der = temp1;
                 temp1.padre=promover.padre;
                 temp2.padre=promover.padre;
+                pointer.padre=null;
             }else{
                 promover.padre.keys.add(index-1,promover.keys.get(0));
                 promover.padre.keys.get(index-1).izq = temp1; 
@@ -77,12 +92,9 @@ public class BTree {
             temp2.padre = promover.padre;
             promover.keys.clear();
             pointer.keys.clear();
-        }else{
-            pointer.padre = null;
-            promover.padre.keys.get(index).izq = temp2;
-            promover.padre.keys.get(index-1).der = temp1;
-            temp2.padre = promover.padre;
-            temp1.padre = promover.padre;
+        }else{//split recursivo
+            promover.keys.get(0).der = temp2;
+            promover.keys.get(0).izq= temp1;
             split(promover,promover.padre,index);
         }
     }
