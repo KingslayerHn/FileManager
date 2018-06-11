@@ -29,40 +29,46 @@ public class BTree {
     }
     //divede un nodo y releva al mas optimo
     public void split(Nodo nuevo, Nodo pointer,int index){
-        if (pointer.keys.get(index).inicioRegistro<nuevo.keys.get(0).inicioRegistro) {
-             pointer.keys.add(nuevo.keys.get(0));           
+        
+        Nodo temp = pointer;//crea un nodo nuevo el cual sera igual al pointer 
+        if (temp.keys.get(index).inicioRegistro<nuevo.keys.get(0).inicioRegistro) {
+             temp.keys.add(nuevo.keys.get(0));           
         }else{
-            pointer.keys.add(index,nuevo.keys.get(0));
+            temp.keys.add(index,nuevo.keys.get(0));
         }        
         Nodo promover =new Nodo();
-        promover.padre = pointer.padre;
-        promover.keys.add(pointer.keys.get(pointer.keys.size()/2));
+        promover.padre = temp.padre;
+        promover.keys.add(temp.keys.get(temp.keys.size()/2));
         Nodo temp1 = new Nodo();
         Nodo temp2 = new Nodo();
         
-        for(int i=0; i< pointer.keys.size()/2;i++){
-            temp1.keys.add(pointer.keys.get(i));
+        for(int i=0; i< temp.keys.size()/2;i++){
+            temp1.keys.add(temp.keys.get(i));
         }
-        for(int i= (pointer.keys.size()/2)+1; i<pointer.keys.size();i++){
-            temp2.keys.add(pointer.keys.get(i));
+        for(int i= (temp.keys.size()/2)+1; i<temp.keys.size();i++){
+            temp2.keys.add(temp.keys.get(i));
         }
-        //validar si tiene hijos o es hoja
-        if (promover.keys.get(0).der !=null && promover.keys.get(0).izq !=null){
-            
-            Nodo hijoTemporalDerecho = promover.keys.get(0).der;
-            Nodo hijoTemporalIzquierdo = promover.keys.get(0).izq;
-            promover.keys.get(0).der=temp2;
-            promover.keys.get(0).izq = temp1;
-            
-            
-        }else if(promover.keys.get(0).der ==null && promover.keys.get(0).izq !=null){
-            Nodo hijoTemporalIzquierdo = promover.keys.get(0).izq;
-            
-        }else if (promover.keys.get(0).der !=null&& promover.keys.get(0).izq == null) {
-            
-        }
+        
         //validar si se puede agregar si hay espacio disponible
-        if (promover.padre==null){
+        if (promover.padre==null) {
+            root = promover;
+            promover.keys.get(0).izq = temp1; 
+            promover.keys.get(0).der = temp2;
+            temp1.padre = promover;
+            temp2.padre= promover;
+            
+        }//fin de si el padre de promover es nulo
+        else if(promover.padre.keys.size()<MLlaves){
+            //este if ordena el padre respecto al que se promueve
+            if (promover.padre.keys.get(index-1).inicioRegistro < 
+                    promover.keys.get(0).inicioRegistro) {
+                pointer.keys.clear();
+                promover.padre.keys.add(promover.keys.get(0));
+            }
+            
+                                    
+        }
+        /*if (promover.padre==null){
             promover.keys.get(0).der = temp2;
             temp2.padre = promover;
             promover.keys.get(0).izq = temp1;
@@ -97,9 +103,10 @@ public class BTree {
             promover.keys.get(0).izq= temp1;
             split(promover,promover.padre,index);
         }
+        */
     }
     //inserta un Nodo
-    public void insert(Nodo nuevo, Nodo pointer, Nodo pointerPadre){
+    public void insert(Nodo nuevo, Nodo pointer){
         
         if(root == null){//pregunta si el arbol esta vacio
             Nodo pagina =  new Nodo();
@@ -112,27 +119,25 @@ public class BTree {
                         if (pointer.keys.get(i).der == null){
                             if (pointer.keys.size() < MLlaves){
                                 pointer.keys.add(nuevo.keys.get(0));
-                                pointer.keys.get(i+1).izq = pointer.keys.get(i).der;
                                 break;
                             }
                             else{
                                 split(nuevo, pointer,i);
                             }                               
                         }else{
-                            insert(nuevo,pointer.der,pointer);
+                            insert(nuevo,pointer.der);
                             break;
                         }  
                     }    
                 }else{
                     if (pointer.keys.get(i).izq == null){
                         if(pointer.keys.size()<MLlaves){
-                            pointer.keys.add(nuevo.keys.get(0));
-                            //no estoy seguro de esto ordenar(pointer);                            
+                            pointer.keys.add(i,nuevo.keys.get(0));                            
                         }else{
                             split(nuevo,pointer,i);
                         }                        
                     }else{
-                        insert(nuevo,pointer.izq,pointer);
+                        insert(nuevo,pointer.izq);
                         break;
                     }      
                 }
