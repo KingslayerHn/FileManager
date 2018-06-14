@@ -39,10 +39,10 @@ public class BTree {
         Nodo promover =new Nodo();
         promover.padre = temp.padre;
         promover.keys.add(temp.keys.get(temp.keys.size()/2));
-        Nodo temp1 = pointer;
-        Nodo temp2 = pointer;
-        temp1.keys.clear();
-        temp2.keys.clear();
+        Nodo temp1 = new Nodo();
+        Nodo temp2 = new Nodo();
+        temp1.padre = promover.padre; 
+        temp2.padre = promover.padre;
         
         for(int i=0; i< temp.keys.size()/2;i++){
             temp1.keys.add(temp.keys.get(i));
@@ -51,46 +51,85 @@ public class BTree {
             temp2.keys.add(temp.keys.get(i));
         }
         
-        //validar si se puede agregar si hay espacio disponible
-        if (promover.padre==null) {
-            root = promover;
-            promover.keys.get(0).izq = temp1; 
-            promover.keys.get(0).der = temp2;
-            temp1.padre = promover;
-            temp2.padre= promover;
+        //validar si el nodo nuevo no tiene hijos
+        if (nuevo.keys.get(0).izq != null && nuevo.keys.get(0).der!= null) {
+            if (promover.keys.get(0).inicioRegistro == nuevo.keys.get(0).inicioRegistro) {
+                temp1.keys.get(temp1.keys.size()-1).der= nuevo.keys.get(0).izq;
+                temp2.keys.get(0).izq=nuevo.keys.get(0).der;                
+            }
+            //agregar padres a nodos del hijo izquierdo
+            if (temp1.keys.size() == 1) {
+                temp1.keys.get(0).der.padre = temp1; 
+                temp1.keys.get(0).izq.padre = temp1;   
+            }else{
+                for (int i = 0; i < temp1.keys.size(); i++) {
+                    if (i==0) {
+                        temp1.keys.get(i).izq.padre = temp1; 
+                        temp1.keys.get(i).der = temp1.keys.get(i+1).izq;
+                        temp1.keys.get(i).der.padre = temp1; 
+                    }else if (i == temp1.keys.size()-1) {
+                        temp1.keys.get(i).der.padre = temp1; 
+                        temp1.keys.get(i).izq.padre = temp1; 
+                    }else{
+                        temp1.keys.get(i).der = temp1.keys.get(i+1).izq;
+                        temp1.keys.get(i).der.padre = temp1; 
+                        temp1.keys.get(i).izq.padre = temp1;
+                    }   
+                }
+            }
             
-        }//fin de si el padre de promover es nulo
-        else if(promover.padre.keys.size()<MLlaves){
-            //si el nodo ha agregar se agrega a la izquierda
-            if (indexPadre == 0 && pointer.padre.keys.size() != indexPadre+1){
-                pointer.keys.clear();
-                promover.padre.keys.get(0).izq = temp1;
-                temp1.padre=promover;
-                promover.keys.get(0).der = pointer;
-                pointer.keys = temp2.keys;
-                promover.padre.keys.add(indexPadre,promover.keys.get(0));
-                temp.padre = null; 
-            } else if (indexPadre == pointer.padre.keys.size()-1) { //si el nodo agregar se agrega a la derecha
-                pointer.keys.clear();
-                promover.padre.keys.get(0).der = temp2;
-                temp2.padre = promover; 
-                promover.keys.get(0).izq = pointer;
-                promover.padre.keys.add(promover.keys.get(0));
-                pointer.keys = temp1.keys;
-                temp.padre = null;                
-            }else{//si el nodo agregar esta enmedio de dos nodos
-                pointer.keys.clear();
-                promover.keys.get(0).izq = temp1;
-                promover.keys.get(0).der = temp2;
-                temp.keys.clear();;
-                promover.padre.keys.get(indexPadre+1).izq = temp; 
-                temp.keys = temp2.keys;
-                pointer.keys = temp1.keys;
-                promover.padre.keys.add(indexPadre+1,promover.keys.get(0));
-            }                 
-        }else{//si el elemento no entra en el padre
-            split(promover,promover.padre,indexPropio,indexPadre);
+            //agregar nodos hijo derecho
+            if (temp2.keys.size() == 1) {
+                temp2.keys.get(0).der.padre = temp2; 
+                temp2.keys.get(0).izq.padre = temp2;   
+            }else{
+                for (int i = 0; i < temp2.keys.size(); i++) {
+                    if (i==0) {
+                        temp2.keys.get(i).izq.padre = temp2; 
+                        temp2.keys.get(i).der = temp2.keys.get(i+1).izq;
+                        temp2.keys.get(i).der.padre = temp2; 
+                    }else if (i == temp2.keys.size()-1) {
+                        temp2.keys.get(i).der.padre = temp2; 
+                        temp2.keys.get(i).izq.padre = temp2; 
+                    }else{
+                        temp2.keys.get(i).der = temp2.keys.get(i+1).izq;
+                        temp2.keys.get(i).der.padre = temp2; 
+                        temp2.keys.get(i).izq.padre = temp2;
+                    }   
+                }
+            } 
+            
+            // validar si es raiz el nodo a promover
+            if (promover.padre==null) {
+                root = promover;
+            }else if (promover.padre.keys.size()<MLlaves) {
+                
+                if (indexPadre == 0 && promover.padre.keys.size() != indexPadre+1){
+                    promover.padre.keys.add(0,promover.keys.get(0));
+                    promover.padre.keys.get(1).izq = temp2; 
+                    temp1.padre = promover.padre;
+                    temp2.padre = promover.padre;
+                    
+                }else if (indexPadre == promover.padre.keys.size()-1) {
+                    //el nodo agregar se agrega a la deracha
+                    promover.padre.keys.add(promover.keys.get(0));
+                    promover.padre.keys.get(promover.padre.keys.size()-2).der = temp1;
+                    temp1.padre = promover.padre;
+                    temp2.padre = promover.padre;                    
+                    
+                }else{
+                    promover.padre.keys.add(indexPadre, promover.keys.get(0));
+                    promover.padre.keys.get(indexPadre-1).der = temp1;
+                    promover.padre.keys.get(indexPadre+1).izq = temp2; 
+                    temp1.padre = promover.padre;
+                    temp2.padre = promover.padre; 
+                }
+                                
+            }else{
+                split(promover,promover.padre,indexPropio,indexPadre);
+            }    
         }
+       
     }
     //inserta un Nodo
     public void insert(Nodo nuevo, Nodo pointer, int indexPadre){

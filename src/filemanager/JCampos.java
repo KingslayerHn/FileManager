@@ -400,6 +400,8 @@ public class JCampos extends javax.swing.JFrame {
                                     listaCampo.getSizeField()+"\n";
                         }
                         fw.write(cadenaGuardar+"#\n");
+                        fw.write(cadenaGuardar+"-1|0\n");
+                        fw.write(cadenaGuardar+"&\n");
                         fw.close();
                         JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");
                     }

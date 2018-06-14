@@ -270,7 +270,7 @@ public class Archivo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Archivo Eliminado Exitosamente!!");                
             }else{
                 JOptionPane.showMessageDialog(null, "Oops! ha surgido un error al momento"
-                        + "de borar el archivo"); 
+                        + "de borrar el archivo"); 
             }  
             
         }
@@ -287,7 +287,7 @@ public class Archivo extends javax.swing.JFrame {
 
     private void txtnuevoArchivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnuevoArchivoKeyPressed
         if(txtnuevoArchivo.getText().length()>20){
-            JOptionPane.showMessageDialog(null,"Nombre de Archivo demaciado Largo");
+            JOptionPane.showMessageDialog(null,"Nombre de Archivo demasiado Largo");
             txtnuevoArchivo.setText("");
             txtnuevoArchivo.requestFocus();    
         }

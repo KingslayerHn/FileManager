@@ -8,6 +8,7 @@ package filemanager;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -288,6 +289,29 @@ public final class JRegistros extends javax.swing.JFrame {
         tabla.setFillsViewportHeight(true);
         JPanelTabla.add(scrollPane);   
     }
+    
+    public ArrayList<AvailList> lista() throws FileNotFoundException, IOException{
+        ArrayList<AvailList> list = null;
+        File f= new File(archivoSeleccionado);
+        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+            String linea ;
+            
+            while((linea = br.readLine()) != null){
+               // bytesMetaCampos+=linea.length()+2;
+                if(linea.equals("#")){
+                    break;
+                }else if(linea.equals("&")){
+                    //String lineCampos[] = linea.split("\\|");
+                    /*listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
+                            Integer.valueOf(lineCampos[3]))); */
+                    
+                }
+            }
+        }
+        
+        
+        return list;
+    }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelTabla;
@@ -306,5 +330,6 @@ public final class JRegistros extends javax.swing.JFrame {
     private int postLectura=0;
     private int sizeLectura=700;
     private String archivoSeleccionado;
+    private ArrayList<AvailList> availList;
     
 }
