@@ -1,32 +1,11 @@
 package filemanager;
 
-import java.util.ArrayList;
-
-
 public class BTree {
     
     private int mLlaves =0; //minimo de llaves
     private int MLlaves =0; //maximo de llaves
     private Nodo root= null;  
     private int order =0; 
-    
-    private class Nodo {
-        public ArrayList<Nodo> keys; 
-        public String Data =""; 
-        public int inicioRegistro =0;
-        public Nodo padre = null; 
-        public Nodo der =null; 
-        public Nodo izq =null; 
-        
-        public Nodo(){
-            keys= new ArrayList();
-        }
-        public Nodo(String Llave, int Post){
-            keys= new ArrayList();
-            Data = Llave;
-            inicioRegistro = Post;               
-        }
-    }
     //divede un nodo y releva al mas optimo
     public void split(Nodo nuevo, Nodo pointer,int indexPropio,int indexPadre){
         
@@ -171,7 +150,45 @@ public class BTree {
         }                
     }
     
-    public void ordenar(Nodo pointer){
-        
+    public boolean search(Nodo N,Nodo pointer){
+        if (root == null) {
+            return false;               
+        }else{
+            for (int i = 0; i < pointer.keys.size(); i++) {
+                if (pointer.keys.get(i).Data.equals(N.keys.get(0).Data)) {
+                    return true;                     
+                }else{
+                    if (N.keys.get(0).inicioRegistro<pointer.keys.get(i).inicioRegistro) {
+                        if (pointer.keys.get(i).izq != null) {
+                            return search(N,pointer.keys.get(i).izq);
+                            
+                        }else{
+                            return false; 
+                        }    
+                    }  
+                }
+                if (i== pointer.keys.size()-1) {
+                    if (pointer.keys.get(i).der != null) {
+                        return search(N,pointer.keys.get(i).der);  
+                    }  
+                }
+                
+            }
+            return false; 
+        } 
+    }
+    public void print(Nodo pointer){
+        for (int i = 0; i < pointer.keys.size(); i++) {
+            if (pointer.keys.get(i).izq != null) {
+                print(pointer.keys.get(i).izq);
+                System.out.println(pointer.keys.get(i).inicioRegistro);
+            }
+            if ((pointer.keys.size()-1) == i) {
+                if (pointer.keys.get(i).der !=null) {
+                    print(pointer.keys.get(i).der);
+                    
+                }  
+            }   
+        }    
     }
 }
