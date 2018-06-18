@@ -290,27 +290,56 @@ public final class JRegistros extends javax.swing.JFrame {
         JPanelTabla.add(scrollPane);   
     }
     
-    public ArrayList<AvailList> lista() throws FileNotFoundException, IOException{
+    public ArrayList<AvailList> lista() throws FileNotFoundException, IOException {
         ArrayList<AvailList> list = null;
-        File f= new File(archivoSeleccionado);
+        File f = new File(archivoSeleccionado);
+        int cont = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-            String linea ;
-            
-            while((linea = br.readLine()) != null){
-               // bytesMetaCampos+=linea.length()+2;
-                if(linea.equals("#")){
-                    break;
-                }else if(linea.equals("&")){
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                if (cont == 1) {
+                    String headList[] = linea.split("\\|");
+                    availList.add(new AvailList(Integer.parseInt(headList[0]), Integer.parseInt(headList[1])));
+                }
+                if (linea.contains("#")) {
+                    cont++;
                     //String lineCampos[] = linea.split("\\|");
                     /*listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
                             Integer.valueOf(lineCampos[3]))); */
-                    
+                }
+                if (linea.contains("&")) {
+                    break;
                 }
             }
+            if (availList.get(0).getPos()==-1) {
+                System.out.println("Avail List is empty");
+            } else{
+                
+            }
         }
-        
-        
+
         return list;
+    }
+    
+    public int Search(int pos, int length) throws FileNotFoundException, FileNotFoundException, IOException {
+        // File f = new File(archivoSeleccionado);
+        String line = "";
+        String newPos="";
+        String Newlength="";
+        /*RandomAccessFile read = new RandomAccessFile(archivoSeleccionado, "r");
+        read.seek(pos);*/
+        line = new String (leerArchivoBuffer("tables\\"+archivoSeleccionado, pos, length));
+        for (int i = 0; i < line.length(); i++) {
+            if (line.charAt(i)=='*'&& line.length()>2) {
+                newPos+=line.charAt(i+1);
+            }
+            if (line.charAt(i)=='&') {
+                break;
+            }
+        }
+        availList.add(new AvailList(Integer.parseInt(newPos), Integer.parseInt(Newlength)));
+        return 0;
     }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
