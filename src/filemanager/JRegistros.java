@@ -315,32 +315,43 @@ public final class JRegistros extends javax.swing.JFrame {
             if (availList.get(0).getPos()==-1) {
                 System.out.println("Avail List is empty");
             } else{
-                
+                while(SearchAvailList(availList.get(0).getPos(), availList.get(0).getSize())==0){
+                    
+                }
             }
         }
 
         return list;
     }
     
-    public int Search(int pos, int length) throws FileNotFoundException, FileNotFoundException, IOException {
+    public int SearchAvailList(int pos, int length) throws FileNotFoundException, FileNotFoundException, IOException {
         // File f = new File(archivoSeleccionado);
-        String line = "";
+        String line;
         String newPos="";
         String Newlength="";
+        int caracter1Pos;
+        int caracter2Pos;
+        int fin;
+        int cont1=0;
+        int cont2=0;
         /*RandomAccessFile read = new RandomAccessFile(archivoSeleccionado, "r");
         read.seek(pos);*/
         line = new String (leerArchivoBuffer("tables\\"+archivoSeleccionado, pos, length));
         for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i)=='*'&& line.length()>2) {
-                newPos+=line.charAt(i+1);
+            if (line.charAt(i)=='*') {
+                caracter1Pos=i;
+            }
+            if (line.charAt(i)=='#') {
+                caracter2Pos=i;
             }
             if (line.charAt(i)=='&') {
-                break;
+                fin = i;
             }
         }
         availList.add(new AvailList(Integer.parseInt(newPos), Integer.parseInt(Newlength)));
         return 0;
     }
+    
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelTabla;
