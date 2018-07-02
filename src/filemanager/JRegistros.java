@@ -217,6 +217,7 @@ public final class JRegistros extends javax.swing.JFrame {
             }
         });
     }
+    
     public String seleccionarArchivo(){
         File path = new File("tables");
         String[] listaArchivos = path.list();

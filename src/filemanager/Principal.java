@@ -1,15 +1,36 @@
 
 package filemanager;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
  * @author Lesterarte
  */
 public class Principal extends javax.swing.JFrame {
+    
+        ArrayList<fieldStructure> listaCampos= new ArrayList();
+        ArrayList<String> Registros = new ArrayList();
+        Workbook wb;
 
     /**
      * Creates new form Principal
@@ -81,6 +102,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnExportar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/export.png"))); // NOI18N
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setText("REGISTROS");
@@ -192,7 +218,13 @@ public class Principal extends javax.swing.JFrame {
         new Archivo().setVisible(true);
               
     }//GEN-LAST:event_btnfileActionPerformed
-
+     public String seleccionarArchivo(){
+        File path = new File("tables");
+        String[] listaArchivos = path.list();
+        JComboBox cmbJOptionPane = new JComboBox(listaArchivos);
+        JOptionPane.showMessageDialog( null, cmbJOptionPane, "Mostrar Datos Archivo", JOptionPane.QUESTION_MESSAGE);
+        return (String)cmbJOptionPane.getSelectedItem();    
+    }
     private void btnCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCamposActionPerformed
         File listaArchivos = new File("tables");
         String[] lista = listaArchivos.list();
@@ -204,7 +236,6 @@ public class Principal extends javax.swing.JFrame {
             jcampos.setVisible(true);
             
         }
-       
     }//GEN-LAST:event_btnCamposActionPerformed
 
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
@@ -219,6 +250,32 @@ public class Principal extends javax.swing.JFrame {
  
         }
     }//GEN-LAST:event_btnRegistrosActionPerformed
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+            
+      
+        String archivo = seleccionarArchivo();  
+        File nuevoArchivo = new File("tables\\"+archivo);
+        try {
+            moverseFinalCampos(nuevoArchivo);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            String bytesLeidosBuffer = new String(leerArchivoBuffer("tables\\"+archivo, moverseHastaFinalCampos, 10000));
+            if (!(bytesLeidosBuffer.equals(" "))){
+                String [] registrosSeparados = bytesLeidosBuffer.split("\\\n");
+                for (int i = 0; i < registrosSeparados.length-1; i++) {
+                    Registros.add(registrosSeparados[i]);
+                }  
+            }
+            ExportarXlsx();
+                
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                
+        }       
+    }//GEN-LAST:event_btnExportarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,6 +312,47 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+     
+    public void ExportarXlsx() throws FileNotFoundException, IOException{
+        int numeroFilas = Registros.size();
+        
+        wb = new XSSFWorkbook();
+        Sheet hojaCalculo = wb.createSheet("Registros");
+        System.out.println("hasta aqui de maravilla");
+        for (int i = 0; i < numeroFilas; i++){
+            Row fila = hojaCalculo.createRow(i);
+            String Linea = Registros.get(i);
+            String contarCampos[] = Linea.split("\\|");            
+            for (int j = 0; j < contarCampos.length; j++) {
+                Cell celda = fila.createCell(j);
+                celda.setCellValue(contarCampos[j]);
+            }   
+        } 
+        wb.write(new FileOutputStream("ExportarExcel.xlsx"));
+    }
+     
+    public byte[] leerArchivoBuffer(String file, int post, int size) throws IOException{
+        byte[]  leerBytes;
+        try (RandomAccessFile archivo = new RandomAccessFile(file,"r")) {
+            archivo.seek(post);
+            leerBytes = new byte[size];
+            archivo.read(leerBytes);
+        }
+        return leerBytes;           
+    }
+     public void moverseFinalCampos(File archivo) throws IOException{
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea ;
+            
+            while((linea = br.readLine()) != null){
+                moverseHastaFinalCampos+=linea.length()+2;
+                if(linea.equals("#")){
+                    break;
+                }
+            }
+            
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCampos;
@@ -271,5 +369,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
-    private ArrayList<File> archivosExistentes; 
+    private ArrayList<File> archivosExistentes;
+    private int moverseHastaFinalCampos = 0;
+
+    
 }
