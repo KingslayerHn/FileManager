@@ -18,10 +18,13 @@ import java.util.Random;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +40,8 @@ public final class JRegistros extends javax.swing.JFrame {
     int caminosArbol=6;
     BTree arbolB = new BTree(caminosArbol);
     File archivo;
+    ArrayList <JTextField> arraycamposTexto = new ArrayList();
+    
     
 
     /**
@@ -47,6 +52,7 @@ public final class JRegistros extends javax.swing.JFrame {
         this.setSize(900,550);
         this.setLocationRelativeTo(this);
         this.setTitle("REGISTROS");
+        jguardar.setVisible(false);
         archivoSeleccionado = seleccionarArchivo();
         archivo = new File("tables\\"+archivoSeleccionado);
         try {
@@ -82,6 +88,8 @@ public final class JRegistros extends javax.swing.JFrame {
         JPanelTabla = new javax.swing.JPanel();
         btnNext = new javax.swing.JButton();
         btnPrevious = new javax.swing.JButton();
+        jpanelNuevo = new javax.swing.JPanel();
+        jguardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -121,7 +129,7 @@ public final class JRegistros extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("Eliminar Registro");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 366, -1, -1));
-        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 660, 310));
+        getContentPane().add(JPanelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 660, 310));
 
         btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/next.png"))); // NOI18N
         btnNext.addActionListener(new java.awt.event.ActionListener() {
@@ -139,11 +147,42 @@ public final class JRegistros extends javax.swing.JFrame {
         });
         getContentPane().add(btnPrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 450, -1, 30));
 
+        jpanelNuevo.setLayout(new java.awt.GridLayout(0, 4));
+        getContentPane().add(jpanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 670, 90));
+
+        jguardar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jguardar.setText("Guardar Registro");
+        jguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jguardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRegistroActionPerformed
-                
+        
+        
+        jguardar.setVisible(true);
+        btnCrearRegistro.setEnabled(false);
+        btnModificarRegistro.setEnabled(false);
+        btnBorrarRegistro.setEnabled(false);
+        for (int i = 0; i < listaCampos.size(); i++) {
+            JLabel label = new JLabel(listaCampos.get(i).getFieldName());
+            jpanelNuevo.add(label);
+            JTextField field = new JTextField();
+            jpanelNuevo.add(field);
+            arraycamposTexto.add(field);
+        }
+        
+        jpanelNuevo.updateUI();
+        //agrega el scrollpane
+        /*JScrollPane scrollPane = new JScrollPane(tabla);
+        tabla.setFillsViewportHeight(true);
+        JPanelTabla.add(scrollPane); */
+        
     }//GEN-LAST:event_btnCrearRegistroActionPerformed
 
     private void btnModificarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRegistroActionPerformed
@@ -191,6 +230,30 @@ public final class JRegistros extends javax.swing.JFrame {
             tabla.setModel(crearModelo());
         }  
     }//GEN-LAST:event_btnPreviousActionPerformed
+
+    private void jguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jguardarActionPerformed
+        try {
+            String cadena="";
+            FileWriter fw = new FileWriter(archivo,true);
+            for (int i = 0; i < arraycamposTexto.size(); i++) {
+                if (i == arraycamposTexto.size()-1) {
+                    cadena += arraycamposTexto.get(i).getText()+"\n";
+                    break;  
+                }
+                cadena+=arraycamposTexto.get(i).getText()+"|";
+            }
+            fw.write(cadena);
+            JOptionPane.showMessageDialog(null, "Registro Agregado con Exito");
+            clearPanel();
+            jguardar.setVisible(false);
+            btnCrearRegistro.setEnabled(true);
+            btnModificarRegistro.setEnabled(true);
+            btnBorrarRegistro.setEnabled(true);
+            fw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jguardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,7 +336,10 @@ public final class JRegistros extends javax.swing.JFrame {
         }        
         
     }
-    
+    public void clearPanel(){
+        jpanelNuevo.removeAll();
+        jpanelNuevo.updateUI();
+    }
     public void cargarArbol() throws FileNotFoundException, IOException{
         File path = new File("index");
         String lista[] = path.list();
@@ -447,6 +513,8 @@ public final class JRegistros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton jguardar;
+    private javax.swing.JPanel jpanelNuevo;
     // End of variables declaration//GEN-END:variables
     private int bytesMetaCampos=0;
     private int bytesMetaAvailList=0;

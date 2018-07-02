@@ -30,11 +30,18 @@
                               <Component id="cb_file1" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+<<<<<<< HEAD
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jb_escribircampos" min="-2" pref="80" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jb_eliminarCampos" min="-2" max="-2" attributes="0"/>
+=======
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Component id="jb_primaryKey" min="-2" max="-2" attributes="0"/>
+>>>>>>> ee1a86837392daf38227fbb616cf8f75e3eeae17
                                       </Group>
                                       <Component id="jScrollPane1" min="-2" pref="180" max="-2" attributes="0"/>
                                   </Group>
@@ -102,10 +109,14 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="333" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+<<<<<<< HEAD
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jb_escribircampos" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jb_eliminarCampos" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+=======
+                          <Component id="jb_primaryKey" min="-2" max="-2" attributes="0"/>
+>>>>>>> ee1a86837392daf38227fbb616cf8f75e3eeae17
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -218,12 +229,21 @@
             <Property name="text" type="java.lang.String" value="Campos Formados"/>
           </Properties>
         </Component>
+<<<<<<< HEAD
         <Component class="javax.swing.JButton" name="jb_escribircampos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceptar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_escribircamposActionPerformed"/>
+=======
+        <Component class="javax.swing.JButton" name="jb_primaryKey">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Seleccionar Primary Key"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_primaryKeyActionPerformed"/>
+>>>>>>> ee1a86837392daf38227fbb616cf8f75e3eeae17
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_crossedfile">
@@ -247,6 +267,7 @@
             <Property name="text" type="java.lang.String" value="Guardar"/>
           </Properties>
         </Component>
+<<<<<<< HEAD
         <Component class="javax.swing.JButton" name="jb_eliminarCampos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
@@ -255,6 +276,8 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_eliminarCamposActionPerformed"/>
           </Events>
         </Component>
+=======
+>>>>>>> ee1a86837392daf38227fbb616cf8f75e3eeae17
       </SubComponents>
     </Container>
   </NonVisualComponents>
