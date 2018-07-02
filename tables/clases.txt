@@ -1,4 +1,0 @@
-false|Nombre|Texto|30
-#
--1|0
-&

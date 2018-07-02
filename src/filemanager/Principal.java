@@ -323,6 +323,12 @@ public class Principal extends javax.swing.JFrame {
                     break;
                 }
             }
+            while((linea = br.readLine()) != null){
+                moverseHastaFinalCampos+=linea.length()+2;
+                if (linea.equals("&")) {
+                    break;                    
+                }  
+            }
             cargarCampos(nuevoArchivo);
             FileWriter fr = new FileWriter("index\\"+archivo);
             //-------------------------crear indice----------------------

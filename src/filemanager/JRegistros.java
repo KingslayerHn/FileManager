@@ -10,9 +10,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -141,7 +143,7 @@ public final class JRegistros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearRegistroActionPerformed
-       
+                
     }//GEN-LAST:event_btnCrearRegistroActionPerformed
 
     private void btnModificarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarRegistroActionPerformed
@@ -225,6 +227,52 @@ public final class JRegistros extends javax.swing.JFrame {
             }
         });
     }
+    public void generarMegaArchivo(File archivo) throws FileNotFoundException, IOException{
+        
+        Random aleatorio = new Random(System.currentTimeMillis());
+        
+        String nombres[] = {"jose","andrea","lester","margarito", "sofia","magda","yackeline",
+                            "Cardiel","Catuta","caren","jorge", "diana","briceida","caroline",
+                            "Cavello","danae","eider","elian", "pamela","pedro","helen",
+                            "maritza","Coquihui","william","tony", "geovanny","gustavo","soria",
+                            "alba","ariel","erick","fabricio", "rodrigo","norma","dago"};
+        
+        String apellidos[] = {"arteaga","andino","celenia","morales", "maradiaga","sandoval","panchame",
+                            "Aldape","Alcocer","Abrego","Abrigo", "Antuna","Baena","Balades",
+                            "cobain","pantoja","tatallon","giron", "duron","garcia","lopez",
+                            "leiva","guevara","rodriguez","urraco", "alegria","seviche","soria",
+                            "servellon","melgar","pedredol","roncero", "gavarete","munguia","michelini"};
+        
+        String generos[] = {"masculino","Femenino", "otro", "no especificar"};
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            FileWriter fw = new FileWriter(archivo,true);
+            String linea ;
+            while((linea = br.readLine()) != null){
+                bytesMetaCampos+=linea.length()+2;
+                if(linea.equals("#")){
+                    break;
+                }
+            }
+            while((linea = br.readLine()) != null){
+                bytesMetaCampos+=linea.length()+2;
+                if (linea.equals("&")) {
+                    break;                    
+                } 
+            }
+            
+            for (int i = 1; i <= 10000; i++) {
+                String lineAgregar = i+"|"+nombres[aleatorio.nextInt(nombres.length)]+
+                        "|"+apellidos[aleatorio.nextInt(apellidos.length)]+"|"+
+                        aleatorio.nextInt(100)+"|"+generos[aleatorio.nextInt(generos.length)]+"\n";
+                fw.write(lineAgregar);                
+            }
+                                
+            fw.close();
+            br.close();
+        }        
+        
+    }
     
     public void cargarArbol() throws FileNotFoundException, IOException{
         File path = new File("index");
@@ -267,6 +315,12 @@ public final class JRegistros extends javax.swing.JFrame {
                     listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
                             Integer.valueOf(lineCampos[3])));   
                 }
+            }
+            while((linea = br.readLine()) != null){
+                bytesMetaCampos+=linea.length()+2;
+                if (linea.equals("&")) {
+                    break;                    
+                } 
             }
         }
     }

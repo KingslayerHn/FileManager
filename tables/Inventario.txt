@@ -1,5 +1,0 @@
-false|ID|Numero|3
-false|Nombre|Texto|14
-false|Edad|Numero|10
-false|Direccion|Texto|40
-#
