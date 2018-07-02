@@ -1,6 +1,7 @@
 
 package filemanager;
 
+import java.beans.XMLEncoder;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -252,8 +253,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrosActionPerformed
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
-            
-      
+         
         String archivo = seleccionarArchivo();  
         File nuevoArchivo = new File("tables\\"+archivo);
         try {
@@ -269,7 +269,8 @@ public class Principal extends javax.swing.JFrame {
                     Registros.add(registrosSeparados[i]);
                 }  
             }
-            ExportarXlsx();
+            exportarXLSX();
+            exportarXML();
                 
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,12 +314,11 @@ public class Principal extends javax.swing.JFrame {
         });
     }
      
-    public void ExportarXlsx() throws FileNotFoundException, IOException{
+    public void exportarXLSX() throws FileNotFoundException, IOException{
         int numeroFilas = Registros.size();
         
         wb = new XSSFWorkbook();
         Sheet hojaCalculo = wb.createSheet("Registros");
-        System.out.println("hasta aqui de maravilla");
         for (int i = 0; i < numeroFilas; i++){
             Row fila = hojaCalculo.createRow(i);
             String Linea = Registros.get(i);
@@ -329,6 +329,18 @@ public class Principal extends javax.swing.JFrame {
             }   
         } 
         wb.write(new FileOutputStream("ExportarExcel.xlsx"));
+    }
+    public void exportarXML() throws FileNotFoundException, IOException{
+        FileOutputStream fos = new FileOutputStream(new File("archivoXML.xml"));
+        XMLEncoder encoder = new XMLEncoder(fos);
+        for (int i = 0; i < Registros.size(); i++) {
+            String Linea = Registros.get(i);
+            String contarCampos[] = Linea.split("\\|");            
+            encoder.writeObject(contarCampos);  
+        }
+        encoder.close();
+        fos.close();
+        
     }
      
     public byte[] leerArchivoBuffer(String file, int post, int size) throws IOException{
