@@ -5,11 +5,17 @@
  */
 package filemanager;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -22,6 +28,7 @@ public class Archivo extends javax.swing.JFrame {
         
         initComponents();
         this.setLocationRelativeTo(this);
+        //btn_cruzar.setEnabled(false);
         //se mueve al directorio adondese encuentran los archivos
         refreshModel();
           if(cmbarchivosDisponibles.getItemCount()==0){
@@ -55,6 +62,20 @@ public class Archivo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jd_Cruzar = new javax.swing.JDialog();
+        jLabel5 = new javax.swing.JLabel();
+        cb_file1 = new javax.swing.JComboBox<>();
+        cb_file2 = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btn_cruzar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListCampos = new javax.swing.JList<>();
+        jLabel8 = new javax.swing.JLabel();
+        jb_primaryKey = new javax.swing.JButton();
+        txt_crossedfile = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         txtnuevoArchivo = new javax.swing.JTextField();
         btnnuevoArchivo = new javax.swing.JButton();
@@ -65,6 +86,133 @@ public class Archivo extends javax.swing.JFrame {
         cmbarchivosDisponibles = new javax.swing.JComboBox<>();
         lblSeleccionarArchivoBorrar = new javax.swing.JLabel();
         lblSeleccionarArchivoBorrar1 = new javax.swing.JLabel();
+        jb_cruzar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+
+        jd_Cruzar.setBackground(new java.awt.Color(204, 255, 204));
+        jd_Cruzar.setForeground(new java.awt.Color(204, 255, 204));
+        jd_Cruzar.setModal(true);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setText("Cruzar Archivos");
+
+        cb_file1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_file1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_file1ActionPerformed(evt);
+            }
+        });
+
+        cb_file2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("Archivo 2");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setText("Archivo 1");
+
+        btn_cruzar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/mix_icon-icons.com_67962.png"))); // NOI18N
+        btn_cruzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cruzarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(jListCampos);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setText("Campos Formados");
+
+        jb_primaryKey.setText("Seleccionar Primary Key");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setText("Nombre de nuevo archivo");
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/modificarCampo.png"))); // NOI18N
+        jButton1.setText("Guardar");
+
+        javax.swing.GroupLayout jd_CruzarLayout = new javax.swing.GroupLayout(jd_Cruzar.getContentPane());
+        jd_Cruzar.getContentPane().setLayout(jd_CruzarLayout);
+        jd_CruzarLayout.setHorizontalGroup(
+            jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_CruzarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(132, 132, 132))
+                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                        .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_file1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jd_CruzarLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jb_primaryKey))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                                        .addComponent(cb_file2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())
+                                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addContainerGap()))
+                                .addGroup(jd_CruzarLayout.createSequentialGroup()
+                                    .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_cruzar))
+                                    .addGap(29, 29, 29)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CruzarLayout.createSequentialGroup()
+                                .addComponent(txt_crossedfile, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
+            .addGroup(jd_CruzarLayout.createSequentialGroup()
+                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel5))
+                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel8)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jd_CruzarLayout.setVerticalGroup(
+            jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_CruzarLayout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(23, 23, 23)
+                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_file1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_file2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jb_primaryKey)
+                        .addContainerGap())
+                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                        .addComponent(btn_cruzar)
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(txt_crossedfile, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton1)
+                        .addGap(23, 23, 23))))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("principal"); // NOI18N
@@ -135,12 +283,22 @@ public class Archivo extends javax.swing.JFrame {
         lblSeleccionarArchivoBorrar1.setText("un Archivo");
         lblSeleccionarArchivoBorrar1.setToolTipText("");
 
+        jb_cruzar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/mix_icon-icons.com_67962.png"))); // NOI18N
+        jb_cruzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cruzarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("CRUZAR");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,66 +306,68 @@ public class Archivo extends javax.swing.JFrame {
                                 .addComponent(cmbarchivosDisponibles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSeleccionarArchivoBorrar)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(lblSeleccionarArchivoBorrar1)))))
-                        .addGap(70, 70, 70)
+                                .addGap(72, 72, 72)
+                                .addComponent(lblSeleccionarArchivoBorrar1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(lblSeleccionarArchivoBorrar)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnnuevoArchivo)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(31, 31, 31)))
+                                .addGap(70, 70, 70)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addComponent(txtnuevoArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(78, 78, 78))))
+                                    .addComponent(btnnuevoArchivo)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jb_cruzar)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addGap(28, 28, 28)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(279, 279, 279)))
+                                .addGap(12, 12, 12)
+                                .addComponent(txtnuevoArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(78, 78, 78)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
+                        .addGap(307, 307, 307))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel4)
                         .addGap(310, 310, 310))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnnuevoArchivo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbarchivosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(lblSeleccionarArchivoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSeleccionarArchivoBorrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
                         .addComponent(txtnuevoArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnnuevoArchivo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbarchivosDisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103)
+                        .addComponent(lblSeleccionarArchivoBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSeleccionarArchivoBorrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jb_cruzar)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,7 +442,7 @@ public class Archivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cmbarchivosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbarchivosDisponiblesActionPerformed
-       
+        
     }//GEN-LAST:event_cmbarchivosDisponiblesActionPerformed
 
     private void txtnuevoArchivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnuevoArchivoKeyPressed
@@ -293,6 +453,84 @@ public class Archivo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtnuevoArchivoKeyPressed
 
+    private void jb_cruzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cruzarActionPerformed
+        File path = new File("tables");
+        String[] listaArchivos = path.list();
+        this.cb_file1.removeAllItems();
+        this.cb_file2.removeAllItems();
+        for (String listaArchivo : listaArchivos) {
+            this.cb_file1.addItem(listaArchivo);
+        }
+        for (String listaArchivo : listaArchivos) {
+            this.cb_file2.addItem(listaArchivo);
+        }
+        jd_Cruzar.setModal(true);
+        jd_Cruzar.pack();
+        jd_Cruzar.setLocationRelativeTo(this);
+        jd_Cruzar.setVisible(true);
+    }//GEN-LAST:event_jb_cruzarActionPerformed
+
+    private void cb_file1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_file1ActionPerformed
+        
+    }//GEN-LAST:event_cb_file1ActionPerformed
+
+    private void btn_cruzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cruzarActionPerformed
+        DefaultListModel modeloLista = new DefaultListModel();
+        if (cb_file1.getSelectedItem().equals(cb_file2.getSelectedItem())) {
+            JOptionPane.showMessageDialog(this, "No se puede cruzar el mismo archivo\n"
+                    + "Seleccione uno diferente");
+            
+        } else{
+            archivoSeleccionado=(String)cb_file1.getSelectedItem();
+            File archivo = new File("tables\\"+archivoSeleccionado);
+            try {
+                cargarCampos(archivo);
+            } catch (IOException ex) {
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (fieldStructure listaCampo : listaCampos) {
+                modeloLista.addElement(listaCampo.getFieldName());
+            }
+            
+            archivoSeleccionado=(String)cb_file2.getSelectedItem();
+            archivo = new File("tables\\"+archivoSeleccionado);
+            try {
+                cargarCampos(archivo);
+            } catch (IOException ex) {
+                Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (fieldStructure listaCampo : listaCampos) {
+                if (modeloLista.contains(listaCampo.getFieldName())) {
+                    
+                } else{
+                modeloLista.addElement(listaCampo.getFieldName());    
+                }
+            }
+            jListCampos.setModel(modeloLista);
+        }
+    }//GEN-LAST:event_btn_cruzarActionPerformed
+    public void cargarCampos(File archivo) throws IOException {
+        listaCampos= new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                bytesMetaCampos += linea.length() + 2;
+                if (linea.equals("#")) {
+                    break;
+                } else {
+                    String lineCampos[] = linea.split("\\|");
+                    listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]), lineCampos[1], lineCampos[2],
+                            Integer.valueOf(lineCampos[3])));
+                }
+            }
+        }
+    }
+    public void archivoCruzado(){
+        ArrayList<fieldStructure> newCampos;
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -332,14 +570,34 @@ public class Archivo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btn_cruzar;
     private javax.swing.JButton btnnuevoArchivo;
+    private javax.swing.JComboBox<String> cb_file1;
+    private javax.swing.JComboBox<String> cb_file2;
     private javax.swing.JComboBox<String> cmbarchivosDisponibles;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jListCampos;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jb_cruzar;
+    private javax.swing.JButton jb_primaryKey;
+    private javax.swing.JDialog jd_Cruzar;
     private javax.swing.JLabel lblSeleccionarArchivoBorrar;
     private javax.swing.JLabel lblSeleccionarArchivoBorrar1;
+    private javax.swing.JTextField txt_crossedfile;
     private javax.swing.JTextField txtnuevoArchivo;
     // End of variables declaration//GEN-END:variables
-    
+    ArrayList<fieldStructure> listaCampos = null;
+    int bytesMetaCampos=0;
+    private int postLectura=0;
+    private int sizeLectura=700;
+    private String archivoSeleccionado;
 }
