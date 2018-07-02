@@ -232,7 +232,27 @@ public final class JRegistros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void jguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jguardarActionPerformed
-        // TODO add your handling code here:
+        try {
+            String cadena="";
+            FileWriter fw = new FileWriter(archivo,true);
+            for (int i = 0; i < arraycamposTexto.size(); i++) {
+                if (i == arraycamposTexto.size()-1) {
+                    cadena += arraycamposTexto.get(i).getText()+"\n";
+                    break;  
+                }
+                cadena+=arraycamposTexto.get(i).getText()+"|";
+            }
+            fw.write(cadena);
+            JOptionPane.showMessageDialog(null, "Registro Agregado con Exito");
+            clearPanel();
+            jguardar.setVisible(false);
+            btnCrearRegistro.setEnabled(true);
+            btnModificarRegistro.setEnabled(true);
+            btnBorrarRegistro.setEnabled(true);
+            fw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jguardarActionPerformed
 
     /**
@@ -316,7 +336,10 @@ public final class JRegistros extends javax.swing.JFrame {
         }        
         
     }
-    
+    public void clearPanel(){
+        jpanelNuevo.removeAll();
+        jpanelNuevo.updateUI();
+    }
     public void cargarArbol() throws FileNotFoundException, IOException{
         File path = new File("index");
         String lista[] = path.list();
