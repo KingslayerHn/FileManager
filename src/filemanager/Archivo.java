@@ -556,7 +556,7 @@ public class Archivo extends javax.swing.JFrame {
                             + "|" + campo.getFieldName() + "|" + campo.getDataType() + "|"
                             + campo.getSizeField() + "\n";
                 }
-                fw.write(cadenaGuardar + "#\n-1|0\n&");
+                fw.write(cadenaGuardar + "#\n-1|0\n&\n");
                 fw.close();
                 JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");
             }

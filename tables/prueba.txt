@@ -4,6 +4,8 @@ false|Sexo|Texto|10
 false|Direccion|Texto|45
 false|Edad|Numero|3
 #
+-1|0
+&
 1|Jose Eduardo|masculino|divina providencia|23
 2|maria irias|femenino|los andes|34
 3|andrea nicole|femenino|tegucigalpa|23
@@ -22,3 +24,21 @@ false|Edad|Numero|3
 16|roberto echeverria|femenino|las casitas|45
 17|brandom daniel|masculino|el centro|10
 18|susana Guevara|femenino|washintong|15
+19|Jose Eduardo|masculino|divina providencia|23
+20|maria irias|femenino|los andes|34
+21|andrea nicole|femenino|tegucigalpa|23
+22|ilianita uraco|femenino|tegus|21
+23|lester arteaga|masculino|zambrano|35
+24|carlos remigio|femenino|las astas|24
+25|jose matute|masculino|las vegas nevada|45
+26|lourdes sandoval|femenino|ukulele|34
+27|maria de los angeles|femenino|barcelona|33
+28|lorna arteaga|femenino|costa rica|16
+29|gustavo arteaga|masculino|san pedro sula|55
+30|Antino Gutierrez|masculino|barcelona|32
+31|norman bates|masculino|la paz|29
+32|jose roberto|masculino|las vegas nevada|33
+33|lourdes manuela|femenino|curaren|36
+34|roberto echeverria|femenino|las casitas|45
+35|brandom daniel|masculino|el centro|10
+36|susana Guevara|femenino|washintong|15
