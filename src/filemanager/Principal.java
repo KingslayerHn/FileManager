@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
@@ -114,6 +115,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnIndex.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnIndex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/index.png"))); // NOI18N
+        btnIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIndexActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setText("INDICES");
@@ -238,7 +244,32 @@ public class Principal extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_btnCamposActionPerformed
-
+    public void cargarCampos(File archivo) throws IOException{
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea ;
+            
+            while((linea = br.readLine()) != null){
+                moverseHastaFinalCampos+=linea.length()+2;
+                if(linea.equals("#")){
+                    break;
+                }else{
+                    String lineCampos[] = linea.split("\\|");
+                    listaCampos.add(new fieldStructure(Boolean.valueOf(lineCampos[0]),lineCampos[1],lineCampos[2],
+                            Integer.valueOf(lineCampos[3])));   
+                }
+            }
+        }
+    }
+    
+    public int indiceLlave(){
+        for (int i = 0; i < listaCampos.size(); i++) {
+            if (listaCampos.get(i).isPrimarykey()) {
+                return i;                
+            }   
+        }
+        return -1;               
+    }
+    
     private void btnRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrosActionPerformed
         File listaArchivos = new File("tables");
         String[] lista = listaArchivos.list();
@@ -275,8 +306,39 @@ public class Principal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
                 
-        }       
+        }
+        
+        JOptionPane.showMessageDialog(null, "Archivo Exportado Correctamente");
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void btnIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIndexActionPerformed
+        String archivo = seleccionarArchivo();  
+        File nuevoArchivo = new File("tables\\"+archivo);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(nuevoArchivo)); 
+            String linea ;            
+            while((linea = br.readLine()) != null){
+                moverseHastaFinalCampos+=linea.length()+2;
+                if(linea.equals("#")){
+                    break;
+                }
+            }
+            cargarCampos(nuevoArchivo);
+            FileWriter fr = new FileWriter("index\\index"+archivo);
+            //-------------------------crear indice----------------------
+            while((linea = br.readLine()) != null){
+                String spliLinea []= linea.split("\\|");
+                fr.write(spliLinea[indiceLlave()]+","+moverseHastaFinalCampos+ "\n");
+                moverseHastaFinalCampos+=linea.length()+2;
+                
+            }
+            fr.close();
+            br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(null, "Indice Creado Correctamente");
+    }//GEN-LAST:event_btnIndexActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,8 +416,7 @@ public class Principal extends javax.swing.JFrame {
     }
      public void moverseFinalCampos(File archivo) throws IOException{
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea ;
-            
+            String linea ;            
             while((linea = br.readLine()) != null){
                 moverseHastaFinalCampos+=linea.length()+2;
                 if(linea.equals("#")){

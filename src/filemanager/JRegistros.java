@@ -33,7 +33,6 @@ public final class JRegistros extends javax.swing.JFrame {
     ArrayList<String> Registros = new ArrayList();
     JTable tabla;
     
-    
 
     /**
      * Creates new form JRegistros
