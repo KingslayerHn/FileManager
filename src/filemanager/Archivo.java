@@ -70,10 +70,11 @@ public class Archivo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListCampos = new javax.swing.JList<>();
         jLabel8 = new javax.swing.JLabel();
-        jb_primaryKey = new javax.swing.JButton();
+        jb_escribircampos = new javax.swing.JButton();
         txt_crossedfile = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jb_eliminarCampos = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         txtnuevoArchivo = new javax.swing.JTextField();
         btnnuevoArchivo = new javax.swing.JButton();
@@ -121,10 +122,10 @@ public class Archivo extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Campos Formados");
 
-        jb_primaryKey.setText("Seleccionar Primary Key");
-        jb_primaryKey.addActionListener(new java.awt.event.ActionListener() {
+        jb_escribircampos.setText("Aceptar");
+        jb_escribircampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_primaryKeyActionPerformed(evt);
+                jb_escribircamposActionPerformed(evt);
             }
         });
 
@@ -134,6 +135,13 @@ public class Archivo extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/filemanager/Icons/modificarCampo.png"))); // NOI18N
         jButton1.setText("Guardar");
+
+        jb_eliminarCampos.setText("Eliminar");
+        jb_eliminarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_eliminarCamposActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jd_CruzarLayout = new javax.swing.GroupLayout(jd_Cruzar.getContentPane());
         jd_Cruzar.getContentPane().setLayout(jd_CruzarLayout);
@@ -152,10 +160,11 @@ public class Archivo extends javax.swing.JFrame {
                             .addComponent(cb_file1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jd_CruzarLayout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jd_CruzarLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jb_primaryKey))
+                                        .addComponent(jb_escribircampos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jb_eliminarCampos))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +211,9 @@ public class Archivo extends javax.swing.JFrame {
                     .addGroup(jd_CruzarLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jb_primaryKey)
+                        .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jb_escribircampos)
+                            .addComponent(jb_eliminarCampos))
                         .addContainerGap())
                     .addGroup(jd_CruzarLayout.createSequentialGroup()
                         .addComponent(btn_cruzar)
@@ -509,10 +520,11 @@ public class Archivo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_cruzarActionPerformed
 
-    private void jb_primaryKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_primaryKeyActionPerformed
+    private void jb_escribircamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_escribircamposActionPerformed
         DefaultListModel modeloLista = new DefaultListModel();
         ArrayList<fieldStructure> campos = new ArrayList<>();
-        int pos = jListCampos.getSelectedIndex();
+        ArrayList<String> nombres = new ArrayList();
+        //int pos = jListCampos.getSelectedIndex();
         modeloLista = (DefaultListModel) jListCampos.getModel();
         System.out.println(modeloLista.size());
 
@@ -523,14 +535,29 @@ public class Archivo extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (fieldStructure listaCampo : listaCampos) {
+        /*for (fieldStructure listaCampo : listaCampos) {
             if (listaCampo.isPrimarykey()) {
                 campos.add(new fieldStructure(true, listaCampo.getFieldName(), listaCampo.getDataType(), listaCampo.getSizeField()));
             } else {
                 campos.add(new fieldStructure(false, listaCampo.getFieldName(), listaCampo.getDataType(), listaCampo.getSizeField()));
             }
+        }*/
+        for (int i = 0; i < modeloLista.getSize(); i++) {
+            nombres.add(modeloLista.getElementAt(i).toString());
         }
-
+        System.out.println(nombres);
+        
+        //System.out.println(listaCampos);
+       /* for (int i = 0; i < listaCampos.size(); i++) {
+            int pos =jListCampos.getSelectedIndex();
+            if (listaCampos.get(i).getFieldName().equalsIgnoreCase(modeloLista.getElementAt(pos).toString())) {
+                if (listaCampos.get(i).isPrimarykey()) {
+                    listaCamposCruzados.add(new fieldStructure(true, listaCampos.get(i).getFieldName(), listaCampos.get(i).getDataType(), listaCampos.get(i).getSizeField()));
+                } else {
+                    listaCamposCruzados.add(new fieldStructure(false, listaCampos.get(i).getFieldName(), listaCampos.get(i).getDataType(), listaCampos.get(i).getSizeField()));
+                }
+            }
+        }*/
         archivoSeleccionado = (String) cb_file2.getSelectedItem();
         archivo = new File("tables\\" + archivoSeleccionado);
         try {
@@ -539,12 +566,45 @@ public class Archivo extends javax.swing.JFrame {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        for (fieldStructure listaCampo : listaCampos) {
+        /*for (fieldStructure listaCampo : listaCampos) {
             campos.add(new fieldStructure(false, listaCampo.getFieldName(), listaCampo.getDataType(), listaCampo.getSizeField()));
-        }
+        }*/
+   /*     for (int i = 0; i < listaCampos.size(); i++) {
+            if (listaCampos.get(i).getFieldName().equals(modeloLista.get(i).toString())) {
+                listaCamposCruzados.add(new fieldStructure(false, listaCampos.get(i).getFieldName(), listaCampos.get(i).getDataType(), listaCampos.get(i).getSizeField()));
+            }
+        }*/
+   
+        File temporalNuevo = new File("tables\\" + this.txt_crossedfile.getText() + ".txt");
 
+        if (temporalNuevo.exists()) {
+            JOptionPane.showMessageDialog(null, "El archivo ya existe!!");
+            this.txtnuevoArchivo.setText("");
+            this.txtnuevoArchivo.setEnabled(false);
+            this.btnAceptar.setEnabled(false);
+            this.btnnuevoArchivo.setEnabled(true);
+            this.btnEliminar.setEnabled(true);
+        } else {
+            try {
+                FileWriter guardarArchivo = new FileWriter(temporalNuevo);
+                guardarArchivo.close();
+            } catch (Exception e) {
+            }
+            JOptionPane.showMessageDialog(null, "Archivo Agregado Exitosamente");
+
+            refreshModel();
+            this.txtnuevoArchivo.setText("");
+            this.txtnuevoArchivo.setEnabled(false);
+            this.btnAceptar.setEnabled(false);
+            this.btnnuevoArchivo.setEnabled(true);
+            this.btnEliminar.setEnabled(true);
+
+        }
+   
+   
+        System.out.println(listaCamposCruzados);
         try {
-            FileReader fr = new FileReader("tables//" + txt_crossedfile.getText());
+            FileReader fr = new FileReader("tables//" + txt_crossedfile.getText()+".txt");
             if (fr.read() != -1) {
                 JOptionPane.showMessageDialog(null, "El archivo ya existe y esta cruzado");
             } else {
@@ -565,7 +625,15 @@ public class Archivo extends javax.swing.JFrame {
             Logger.getLogger(JCampos.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jb_primaryKeyActionPerformed
+    }//GEN-LAST:event_jb_escribircamposActionPerformed
+
+    private void jb_eliminarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_eliminarCamposActionPerformed
+        DefaultListModel modeloLista = new DefaultListModel();
+        modeloLista = (DefaultListModel) jListCampos.getModel();
+        int pos = jListCampos.getSelectedIndex();
+        modeloLista.removeElementAt(pos);
+
+    }//GEN-LAST:event_jb_eliminarCamposActionPerformed
     public void cargarCampos(File archivo) throws IOException {
         listaCampos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
@@ -645,7 +713,8 @@ public class Archivo extends javax.swing.JFrame {
     private javax.swing.JList<String> jListCampos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_cruzar;
-    private javax.swing.JButton jb_primaryKey;
+    private javax.swing.JButton jb_eliminarCampos;
+    private javax.swing.JButton jb_escribircampos;
     private javax.swing.JDialog jd_Cruzar;
     private javax.swing.JLabel lblSeleccionarArchivoBorrar;
     private javax.swing.JLabel lblSeleccionarArchivoBorrar1;
@@ -657,4 +726,5 @@ public class Archivo extends javax.swing.JFrame {
     private int postLectura = 0;
     private int sizeLectura = 700;
     private String archivoSeleccionado;
+    ArrayList<fieldStructure> listaCamposCruzados;
 }
