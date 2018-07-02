@@ -23,36 +23,34 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class Archivo extends javax.swing.JFrame {
 
-    
     public Archivo() {
-        
+
         initComponents();
         this.setLocationRelativeTo(this);
         //btn_cruzar.setEnabled(false);
         //se mueve al directorio adondese encuentran los archivos
         refreshModel();
-          if(cmbarchivosDisponibles.getItemCount()==0){
+        if (cmbarchivosDisponibles.getItemCount() == 0) {
             btnEliminar.setEnabled(false);
-            
+
         }
-        
+
     }
-    
-    public void refreshModel(){
+
+    public void refreshModel() {
         File path = new File("tables");
         String[] listaArchivos = path.list();
         this.cmbarchivosDisponibles.removeAllItems();
         for (String listaArchivo : listaArchivos) {
             this.cmbarchivosDisponibles.addItem(listaArchivo);
         }
-        if(this.cmbarchivosDisponibles.getItemCount() == 0){
+        if (this.cmbarchivosDisponibles.getItemCount() == 0) {
             this.cmbarchivosDisponibles.setEnabled(false);
-        }else{
+        } else {
             this.cmbarchivosDisponibles.setEnabled(true);
-        }    
+        }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,6 +122,11 @@ public class Archivo extends javax.swing.JFrame {
         jLabel8.setText("Campos Formados");
 
         jb_primaryKey.setText("Seleccionar Primary Key");
+        jb_primaryKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_primaryKeyActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Nombre de nuevo archivo");
@@ -157,13 +160,11 @@ public class Archivo extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jd_CruzarLayout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_CruzarLayout.createSequentialGroup()
+                                    .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(cb_file2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap())
-                                    .addGroup(jd_CruzarLayout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addContainerGap()))
+                                        .addComponent(jLabel9))
+                                    .addContainerGap())
                                 .addGroup(jd_CruzarLayout.createSequentialGroup()
                                     .addGroup(jd_CruzarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,7 +328,6 @@ public class Archivo extends javax.swing.JFrame {
                                 .addGap(12, 12, 12)
                                 .addComponent(txtnuevoArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(78, 78, 78)))
                         .addContainerGap())
@@ -377,79 +377,79 @@ public class Archivo extends javax.swing.JFrame {
         this.btnEliminar.setEnabled(false);
         this.txtnuevoArchivo.setEnabled(true);
         this.btnnuevoArchivo.setEnabled(false);
-        
+
     }//GEN-LAST:event_btnnuevoArchivoActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        File temporalNuevo = new File("tables\\"+this.txtnuevoArchivo.getText() + ".txt");
-        
-        if(temporalNuevo.exists()){
-            JOptionPane.showMessageDialog(null,"El archivo ya existe!!");
+        File temporalNuevo = new File("tables\\" + this.txtnuevoArchivo.getText() + ".txt");
+
+        if (temporalNuevo.exists()) {
+            JOptionPane.showMessageDialog(null, "El archivo ya existe!!");
             this.txtnuevoArchivo.setText("");
             this.txtnuevoArchivo.setEnabled(false);
             this.btnAceptar.setEnabled(false);
             this.btnnuevoArchivo.setEnabled(true);
             this.btnEliminar.setEnabled(true);
-        }else{
+        } else {
             try {
                 FileWriter guardarArchivo = new FileWriter(temporalNuevo);
                 guardarArchivo.close();
-            }catch (Exception e) {
-               }
-            JOptionPane.showMessageDialog(null,"Archivo Agregado Exitosamente");
-            
+            } catch (Exception e) {
+            }
+            JOptionPane.showMessageDialog(null, "Archivo Agregado Exitosamente");
+
             refreshModel();
             this.txtnuevoArchivo.setText("");
             this.txtnuevoArchivo.setEnabled(false);
             this.btnAceptar.setEnabled(false);
             this.btnnuevoArchivo.setEnabled(true);
             this.btnEliminar.setEnabled(true);
-            
-        }   
-        
+
+        }
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtnuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnuevoArchivoActionPerformed
-        
+
     }//GEN-LAST:event_txtnuevoArchivoActionPerformed
 
     private void txtnuevoArchivoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnuevoArchivoKeyReleased
-        this.btnAceptar.setEnabled(this.txtnuevoArchivo.getText().length()!=0);
+        this.btnAceptar.setEnabled(this.txtnuevoArchivo.getText().length() != 0);
     }//GEN-LAST:event_txtnuevoArchivoKeyReleased
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar "
-                + "el archivo seleccionado?","ELIMINAR ARCHIVO!!!!",
+                + "el archivo seleccionado?", "ELIMINAR ARCHIVO!!!!",
                 JOptionPane.YES_NO_OPTION);
         if (opcion == 0) {
             //File borrarArchivo = new File(this.cmbarchivosDisponibles.getiv);
-            
-            File aEliminar = new File("tables\\"+(String)this.cmbarchivosDisponibles.getSelectedItem());
-            if(aEliminar.delete()){
+
+            File aEliminar = new File("tables\\" + (String) this.cmbarchivosDisponibles.getSelectedItem());
+            if (aEliminar.delete()) {
                 refreshModel();
-                JOptionPane.showMessageDialog(null, "Archivo Eliminado Exitosamente!!");                
-            }else{
+                JOptionPane.showMessageDialog(null, "Archivo Eliminado Exitosamente!!");
+            } else {
                 JOptionPane.showMessageDialog(null, "Oops! ha surgido un error al momento"
-                        + "de borrar el archivo"); 
-            }  
-            
+                        + "de borrar el archivo");
+            }
+
         }
-        if(cmbarchivosDisponibles.getItemCount()==0){
-            btnEliminar.setEnabled(false);   
+        if (cmbarchivosDisponibles.getItemCount() == 0) {
+            btnEliminar.setEnabled(false);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void cmbarchivosDisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbarchivosDisponiblesActionPerformed
-        
+
     }//GEN-LAST:event_cmbarchivosDisponiblesActionPerformed
 
     private void txtnuevoArchivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnuevoArchivoKeyPressed
-        if(txtnuevoArchivo.getText().length()>20){
-            JOptionPane.showMessageDialog(null,"Nombre de Archivo demasiado Largo");
+        if (txtnuevoArchivo.getText().length() > 20) {
+            JOptionPane.showMessageDialog(null, "Nombre de Archivo demasiado Largo");
             txtnuevoArchivo.setText("");
-            txtnuevoArchivo.requestFocus();    
+            txtnuevoArchivo.requestFocus();
         }
     }//GEN-LAST:event_txtnuevoArchivoKeyPressed
 
@@ -471,7 +471,7 @@ public class Archivo extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_cruzarActionPerformed
 
     private void cb_file1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_file1ActionPerformed
-        
+
     }//GEN-LAST:event_cb_file1ActionPerformed
 
     private void btn_cruzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cruzarActionPerformed
@@ -479,10 +479,10 @@ public class Archivo extends javax.swing.JFrame {
         if (cb_file1.getSelectedItem().equals(cb_file2.getSelectedItem())) {
             JOptionPane.showMessageDialog(this, "No se puede cruzar el mismo archivo\n"
                     + "Seleccione uno diferente");
-            
-        } else{
-            archivoSeleccionado=(String)cb_file1.getSelectedItem();
-            File archivo = new File("tables\\"+archivoSeleccionado);
+
+        } else {
+            archivoSeleccionado = (String) cb_file1.getSelectedItem();
+            File archivo = new File("tables\\" + archivoSeleccionado);
             try {
                 cargarCampos(archivo);
             } catch (IOException ex) {
@@ -491,9 +491,9 @@ public class Archivo extends javax.swing.JFrame {
             for (fieldStructure listaCampo : listaCampos) {
                 modeloLista.addElement(listaCampo.getFieldName());
             }
-            
-            archivoSeleccionado=(String)cb_file2.getSelectedItem();
-            archivo = new File("tables\\"+archivoSeleccionado);
+
+            archivoSeleccionado = (String) cb_file2.getSelectedItem();
+            archivo = new File("tables\\" + archivoSeleccionado);
             try {
                 cargarCampos(archivo);
             } catch (IOException ex) {
@@ -501,16 +501,73 @@ public class Archivo extends javax.swing.JFrame {
             }
             for (fieldStructure listaCampo : listaCampos) {
                 if (modeloLista.contains(listaCampo.getFieldName())) {
-                    
-                } else{
-                modeloLista.addElement(listaCampo.getFieldName());    
+                } else {
+                    modeloLista.addElement(listaCampo.getFieldName());
                 }
             }
             jListCampos.setModel(modeloLista);
         }
     }//GEN-LAST:event_btn_cruzarActionPerformed
+
+    private void jb_primaryKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_primaryKeyActionPerformed
+        DefaultListModel modeloLista = new DefaultListModel();
+        ArrayList<fieldStructure> campos = new ArrayList<>();
+        int pos = jListCampos.getSelectedIndex();
+        modeloLista = (DefaultListModel) jListCampos.getModel();
+        System.out.println(modeloLista.size());
+
+        archivoSeleccionado = (String) cb_file1.getSelectedItem();
+        File archivo = new File("tables\\" + archivoSeleccionado);
+        try {
+            cargarCampos(archivo);
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (fieldStructure listaCampo : listaCampos) {
+            if (listaCampo.isPrimarykey()) {
+                campos.add(new fieldStructure(true, listaCampo.getFieldName(), listaCampo.getDataType(), listaCampo.getSizeField()));
+            } else {
+                campos.add(new fieldStructure(false, listaCampo.getFieldName(), listaCampo.getDataType(), listaCampo.getSizeField()));
+            }
+        }
+
+        archivoSeleccionado = (String) cb_file2.getSelectedItem();
+        archivo = new File("tables\\" + archivoSeleccionado);
+        try {
+            cargarCampos(archivo);
+        } catch (IOException ex) {
+            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (fieldStructure listaCampo : listaCampos) {
+            campos.add(new fieldStructure(false, listaCampo.getFieldName(), listaCampo.getDataType(), listaCampo.getSizeField()));
+        }
+
+        try {
+            FileReader fr = new FileReader("tables//" + txt_crossedfile.getText());
+            if (fr.read() != -1) {
+                JOptionPane.showMessageDialog(null, "El archivo ya existe y esta cruzado");
+            } else {
+                FileWriter fw = new FileWriter("tables//"
+                        + txt_crossedfile.toString());
+                String cadenaGuardar = "";
+                for (fieldStructure campo : campos) {
+                    cadenaGuardar += campo.isPrimarykey()
+                            + "|" + campo.getFieldName() + "|" + campo.getDataType() + "|"
+                            + campo.getSizeField() + "\n";
+                }
+                fw.write(cadenaGuardar + "#\n-1|0\n&");
+                fw.close();
+                JOptionPane.showMessageDialog(null, "Estructura de Campos Agregada correctamente");
+            }
+            fr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(JCampos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jb_primaryKeyActionPerformed
     public void cargarCampos(File archivo) throws IOException {
-        listaCampos= new ArrayList<>();
+        listaCampos = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -525,12 +582,12 @@ public class Archivo extends javax.swing.JFrame {
             }
         }
     }
-    public void archivoCruzado(){
+
+    public void archivoCruzado() {
         ArrayList<fieldStructure> newCampos;
-        
+
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -564,7 +621,7 @@ public class Archivo extends javax.swing.JFrame {
                 new Archivo().setVisible(true);
             }
         });
-                
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -596,8 +653,8 @@ public class Archivo extends javax.swing.JFrame {
     private javax.swing.JTextField txtnuevoArchivo;
     // End of variables declaration//GEN-END:variables
     ArrayList<fieldStructure> listaCampos = null;
-    int bytesMetaCampos=0;
-    private int postLectura=0;
-    private int sizeLectura=700;
+    int bytesMetaCampos = 0;
+    private int postLectura = 0;
+    private int sizeLectura = 700;
     private String archivoSeleccionado;
 }
