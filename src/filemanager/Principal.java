@@ -324,7 +324,7 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
             cargarCampos(nuevoArchivo);
-            FileWriter fr = new FileWriter("index\\index"+archivo);
+            FileWriter fr = new FileWriter("index\\"+archivo);
             //-------------------------crear indice----------------------
             while((linea = br.readLine()) != null){
                 String spliLinea []= linea.split("\\|");

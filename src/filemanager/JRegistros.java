@@ -32,25 +32,34 @@ public final class JRegistros extends javax.swing.JFrame {
     Stack<Integer> pilaBuffer  = new Stack<>(); 
     ArrayList<String> Registros = new ArrayList();
     JTable tabla;
+    int caminosArbol=6;
+    BTree arbolB = new BTree(caminosArbol);
+    File archivo;
     
 
     /**
      * Creates new form JRegistros
      */
-    public JRegistros() {
+    public JRegistros(){
         initComponents();
         this.setSize(900,550);
         this.setLocationRelativeTo(this);
         this.setTitle("REGISTROS");
         archivoSeleccionado = seleccionarArchivo();
-        File archivo = new File("tables\\"+archivoSeleccionado);
+        archivo = new File("tables\\"+archivoSeleccionado);
         try {
             cargarCampos(archivo);
             CargarArchivoEstructura();
             crearTabla();
         } catch (IOException ex) {
             Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }
+        
+        try {
+            cargarArbol();
+        } catch (IOException ex) {
+            Logger.getLogger(JRegistros.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -215,6 +224,27 @@ public final class JRegistros extends javax.swing.JFrame {
                 new JRegistros().setVisible(true);
             }
         });
+    }
+    
+    public void cargarArbol() throws FileNotFoundException, IOException{
+        File path = new File("index");
+        String lista[] = path.list();
+        if (lista.length == 0) {
+            System.out.println("No existen Indices de este archivo"); 
+        }
+        else{
+
+            File indexFile = new File("index\\"+archivoSeleccionado);
+            BufferedReader br = new BufferedReader(new FileReader(indexFile)); 
+            String linea ;            
+            while((linea = br.readLine()) != null){
+                String splitLinea[] = linea.split(",");                
+                Nodo nuevoNodo = new Nodo();
+                nuevoNodo.keys.add(new Nodo(splitLinea[0],Integer.valueOf(splitLinea[1])));
+                arbolB.insert(nuevoNodo, arbolB.getRoot());
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Arbol Cargado Correctamente");
     }
     
     public String seleccionarArchivo(){

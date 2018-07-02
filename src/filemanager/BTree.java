@@ -121,9 +121,5 @@ public class BTree {
             }//fin de for
         }                
     }
-    
-    public boolean searchKey(String llave,Nodo pointer){
-       return true; 
-    }
-        
+      
 }
